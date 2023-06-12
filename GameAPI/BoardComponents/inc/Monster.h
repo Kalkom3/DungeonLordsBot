@@ -7,13 +7,13 @@
 class Monster
 {
 public:
-	Monster(const MonsterCard& baseMonster);
+	Monster(MonsterCard baseMonster);
 	~Monster();
 
 	void AddTarget(int targetPos);
 	void Activate();
 
 private:
-	const MonsterCard& m_trapCard;
+	const MonsterCard& m_monsterCard;
 	std::vector<int> m_targets;
 }; 

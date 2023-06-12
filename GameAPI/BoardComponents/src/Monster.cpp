@@ -1,7 +1,7 @@
 #include "Monster.h"
 
-Monster::Monster(const MonsterCard& baseMonster) :
-	m_trapCard(baseMonster)
+Monster::Monster(MonsterCard baseMonster) :
+	m_monsterCard(baseMonster)
 {
 }
 
