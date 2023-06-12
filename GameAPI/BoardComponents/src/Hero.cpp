@@ -1,4 +1,5 @@
 #include "Hero.h"
+#include "HeroesTeam.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
 	m_hitPoints(hp), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false)
@@ -9,6 +10,16 @@ Hero::Hero(int hp, int skill, HeroClass heroClass) :
 HeroClass Hero::GetClass() const
 {
 	return m_class;
+}
+
+HeroesTeam* Hero::GetTeam() const
+{
+	return m_team;
+}
+
+void Hero::AssignToTeam(HeroesTeam* teamToAssign)
+{
+	m_team = teamToAssign;
 }
 
 int Hero::GetHitPoints() const
@@ -37,6 +48,15 @@ bool Hero::operator<(const IHero& other)
 
 	return this->GetTeamPriority() > other.GetTeamPriority();
 
+}
+
+bool Hero::GetPosioned() const
+{
+	return false;
+}
+
+void Hero::SetPosioned(bool posionedState)
+{
 }
 
 bool Hero::ReceiveDamage(int damageAmount)
