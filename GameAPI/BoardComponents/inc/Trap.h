@@ -4,6 +4,8 @@
 
 #include "TrapCard.h"
 
+class HeroesTeam;
+
 class Trap
 {
 public:
@@ -11,7 +13,7 @@ public:
 	~Trap();
 
 	void AddTarget(int targetPos);
-	void Activate();
+	void Activate(HeroesTeam& heroTeam);
 
 private:
 	const TrapCard& m_trapCard;

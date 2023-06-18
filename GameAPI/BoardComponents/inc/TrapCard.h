@@ -5,9 +5,9 @@
 class TrapCard
 {
 public: 
-	TrapCard();
+	TrapCard(std::string trapName);
 
-	void Activate(int targetPos) const;
+	const Action& GetAction() const;
 private:
 	Action m_TrapAction;
 };

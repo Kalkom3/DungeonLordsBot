@@ -1,5 +1,6 @@
 #include "Hero.h"
 #include "HeroesTeam.h"
+#include "DlLogger.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
 	m_hitPoints(hp), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false)
@@ -32,31 +33,41 @@ int Hero::GetTeamPriority() const
 	return m_teamPriority;
 }
 
-bool Hero::operator<(const IHero& other)
+bool Hero::GetPositionAssigned() const
 {
+	return m_possitionAssigned;
+}
+
+bool Hero::operator<(const Hero& other) const
+{
+	LOG(DEBUG) << "Hero1(" << this->GetTeamPriority() << ", " << this->m_possitionAssigned << ") - Hero2(" << other.GetTeamPriority() << ")";
 	if (this->GetTeamPriority() == other.GetTeamPriority())
 	{
 		if (this->GetTeamPriority() > 2)
 		{
+			LOG(DEBUG) << "Result = " << !m_possitionAssigned;
 			return !m_possitionAssigned;
 		}
 		else
 		{
+			LOG(DEBUG) << "Result = " << m_possitionAssigned;
 			return m_possitionAssigned;
 		}
 	}
 
+	LOG(DEBUG) << "Result = " << (this->GetTeamPriority() > other.GetTeamPriority());
 	return this->GetTeamPriority() > other.GetTeamPriority();
 
 }
 
 bool Hero::GetPosioned() const
 {
-	return false;
+	return m_posioned;
 }
 
 void Hero::SetPosioned(bool posionedState)
 {
+	m_posioned = posionedState;
 }
 
 bool Hero::ReceiveDamage(int damageAmount)

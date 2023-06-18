@@ -1,5 +1,4 @@
 #include "HeroesTeam.h"
-#include "Hero.h"
 
 #include <algorithm>
 
@@ -8,20 +7,21 @@ HeroesTeam::HeroesTeam()
 
 }
 
-void HeroesTeam::AddHero(std::unique_ptr<IHero>&& hero)
+
+void HeroesTeam::AddHero(Hero&& hero)
 {
 	m_heroes.push_back(std::move(hero));
-	IHero& newHero = *m_heroes[m_heroes.size() - 1];	
+	Hero& newHero = m_heroes[m_heroes.size() - 1];	
 
-	std::sort(m_heroes.begin(),m_heroes.end());
-	
+	std::sort(m_heroes.begin(), m_heroes.end());
+
 	newHero.AssignToTeam(this);
 	newHero.SetPositionAssigned();
 }
 
-const IHero& HeroesTeam::GetHero(int possition) const
+Hero& HeroesTeam::GetHero(int position)
 {
-	return *m_heroes.at(possition);
+	return m_heroes[position];
 }
 
 void HeroesTeam::SetDefaultTeamPermissions()

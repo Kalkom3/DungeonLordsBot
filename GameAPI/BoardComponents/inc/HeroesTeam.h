@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 
-class IHero;
+#include "Hero.h"
 
 class HeroesTeam
 {
@@ -11,12 +11,12 @@ public:
 
 	/// <summary> Add hero to the team </summary>
 	/// <param name="hero"> Hero to be added</param>
-	void AddHero(std::unique_ptr<IHero>&& hero);
+	void AddHero(Hero&& hero);
 
 	/// <summary> Get hero on given position in team </summary>
 	/// <param name="possition"> Hero position </param>
 	/// <returns> Hero on given position </returns>
-	const IHero& GetHero(int possition) const;
+	Hero& GetHero(int possition);
 
 	/// <summary> Reset any combat party effects </summary>
 	void SetDefaultTeamPermissions();
@@ -34,9 +34,10 @@ public:
 	bool GetTeamCanConquer();
 
 private:
+
 	bool m_teamCanHeal = true;
 	bool m_teamCanCast = true;
 	bool m_teamCanConquer = true;
 
-	std::vector<std::unique_ptr<IHero> >m_heroes;
+	std::vector<Hero>m_heroes;
 };

@@ -52,7 +52,10 @@ public:
 	/// <summary> Marks hero as positioned in team </summary>
 	void SetPositionAssigned() override;
 
-	bool operator<(const IHero& other);
+	/// <summary> Marks hero as positioned in team </summary>
+	bool GetPositionAssigned() const override;
+
+	bool operator<(const Hero& other) const;
 
 private:
 	HeroesTeam* m_team;

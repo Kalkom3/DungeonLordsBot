@@ -5,14 +5,20 @@
 
 class Hero;
 
+
+/// <summary>
+/// Class representing using card on board
+/// </summary>
 class Action
 {
 public:
-	Action();
+	Action(std::string name);
 	void ApplyEffect(Hero& hero) const;
+	bool GetRequireTargets() const;
 private:
 	void ResolveSpecialEffect(Hero& hero) const;
+	std::vector<Effect> GetActionEffectsFromName(std::string name);
 
-	std::vector<int>m_targetPositions;
-	Effect m_actionEffect;
+	bool m_requireTargets = false;
+	std::vector<Effect> m_actionEffects;
 };

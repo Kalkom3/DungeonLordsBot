@@ -1,11 +1,12 @@
 #include "TrapCard.h"
 
-TrapCard::TrapCard()
+TrapCard::TrapCard(std::string trapName) :
+	m_TrapAction(trapName)
 {
 
 }
 
-void TrapCard::Activate(int targetPos) const
+const Action& TrapCard::GetAction() const
 {
-	
+	return m_TrapAction;
 }

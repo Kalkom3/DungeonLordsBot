@@ -4,6 +4,8 @@
 
 #include "MonsterCard.h"
 
+class HeroesTeam;
+
 class Monster
 {
 public:
@@ -11,7 +13,7 @@ public:
 	~Monster();
 
 	void AddTarget(int targetPos);
-	void Activate();
+	void Activate(HeroesTeam& heroTeam);
 
 private:
 	const MonsterCard& m_monsterCard;

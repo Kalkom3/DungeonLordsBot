@@ -3,10 +3,12 @@
 
 #include "MonsterCard.h"
 
-MonsterCard::MonsterCard()
+MonsterCard::MonsterCard(std::string monsterName) :
+	m_MonsterAction(monsterName)
 {
 }
 
-MonsterCard::~MonsterCard()
+const Action& MonsterCard::GetAction() const
 {
+	return m_MonsterAction;
 }

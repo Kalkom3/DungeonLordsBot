@@ -1,7 +1,7 @@
 #pragma once
 
-enum class HeroesTeam;
-class HeroTeam;
+enum class HeroClass;
+class HeroesTeam;
 
 class IHero
 {
@@ -17,5 +17,5 @@ public:
 	virtual bool GetPosioned() const = 0;
 	virtual void SetPosioned(bool posionedState) = 0;
 	virtual void SetPositionAssigned() = 0;
-	virtual bool operator<(const IHero&) = 0;
+	virtual bool GetPositionAssigned() const = 0;
 };

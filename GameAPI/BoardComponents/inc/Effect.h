@@ -12,9 +12,23 @@ enum class SpecialEffects
 	POISON
 };
 
+enum class TargetType
+{
+	NONE,
+	FRONT,
+	SECOND,
+	LAST,
+	TARGET,
+	ALL
+};
+
+/// <summary>
+/// Struct containing data about effects of given card
+/// </summary>
 struct Effect
 {
 	int damage;
+	TargetType targetType;
 	SpecialEffects specialEffect;
 };
 
