@@ -3,7 +3,7 @@
 #include <ios>
 
 bool LoggingConfig::s_printToConsole = false;
-typelog LoggingConfig::s_logLevel = DEBUG;
+logLevel LoggingConfig::s_logLevel = DEBUG;
 std::filesystem::path LoggingConfig::s_logFilePath = "";
 
 DlLogger::DlLogger()
@@ -11,7 +11,7 @@ DlLogger::DlLogger()
 
 }
 
-DlLogger::DlLogger(typelog type, std::filesystem::path logPath)
+DlLogger::DlLogger(logLevel type, std::filesystem::path logPath)
 {
     msglevel = type;
     if (LoggingConfig::s_printToConsole)
@@ -65,7 +65,7 @@ std::filesystem::path DlLogger::GetLogFilePath(std::filesystem::path logsDirPath
     return absolutePath / ("Logs_" + std::to_string(fileCount+1) + ".txt");
 }
 
-std::string DlLogger::GetLabel(typelog type)
+std::string DlLogger::GetLabel(logLevel type)
 {
     std::string label;
     switch (type) {

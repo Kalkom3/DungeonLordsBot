@@ -7,7 +7,7 @@
 
 #define LOG(level) DlLogger(level,"Logs")
 
-enum typelog {
+enum logLevel {
     DEBUG,
     INFO,
     WARN,
@@ -17,7 +17,7 @@ enum typelog {
 struct LoggingConfig
 {
     static bool s_printToConsole;
-    static typelog s_logLevel;
+    static logLevel s_logLevel;
     static std::filesystem::path s_logFilePath;
 };
 
@@ -25,7 +25,7 @@ struct LoggingConfig
 class DlLogger {
 public:
     DlLogger();
-    DlLogger(typelog type, std::filesystem::path logPath); 
+    DlLogger(logLevel type, std::filesystem::path logPath); 
     ~DlLogger();
 
 
@@ -43,8 +43,8 @@ public:
     }
 private:
     std::filesystem::path GetLogFilePath(std::filesystem::path logsDirPath);
-    std::string GetLabel(typelog type);
+    std::string GetLabel(logLevel type);
     std::ofstream logFile;
     bool opened = false;
-    typelog msglevel = DEBUG;
+    logLevel msglevel = DEBUG;
 };
