@@ -17,6 +17,10 @@ add_library(GameAPILib
 	${PROJECT_HEADERS}
 )
 
+target_link_libraries(GameAPILib
+	DungeonLogger
+)
+
 target_include_directories(GameAPILib
 	PUBLIC ${PROJECT_SOURCE_DIR}/GameAPI/BoardComponents/inc
 	PUBLIC ${PROJECT_SOURCE_DIR}/GameAPI/Simulation/inc
