@@ -3,9 +3,9 @@
 #include "DlLogger.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
-	m_hitPoints(hp), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false)
+	m_hitPoints(hp), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false), m_team(nullptr)
 {
-	m_teamPriority = heroClass > HeroClass::WARRIOR ? static_cast<int>(heroClass) : 3;
+	m_teamPriority = heroClass >= HeroClass::WARRIOR ? static_cast<int>(heroClass) : 3;
 }
 
 HeroClass Hero::GetClass() const
@@ -21,6 +21,7 @@ HeroesTeam* Hero::GetTeam() const
 void Hero::AssignToTeam(HeroesTeam* teamToAssign)
 {
 	m_team = teamToAssign;
+	m_possitionAssigned = true;
 }
 
 int Hero::GetHitPoints() const
@@ -36,6 +37,23 @@ int Hero::GetTeamPriority() const
 bool Hero::GetPositionAssigned() const
 {
 	return m_possitionAssigned;
+}
+
+void Hero::AddTag(std::string newTag)
+{
+	m_tags.push_back(newTag);
+}
+
+bool Hero::ResolveTopTag()
+{
+	if (m_tags.size() == 0)
+	{
+		return false;
+	}
+	m_tags[m_tags.size() - 1];
+	m_tags.pop_back();
+	return true;
+	
 }
 
 bool Hero::operator<(const Hero& other) const
@@ -60,14 +78,9 @@ bool Hero::operator<(const Hero& other) const
 
 }
 
-bool Hero::GetPosioned() const
+bool Hero::operator==(const Hero& other) const
 {
-	return m_posioned;
-}
-
-void Hero::SetPosioned(bool posionedState)
-{
-	m_posioned = posionedState;
+	return m_hitPoints == other.m_hitPoints && m_abitlityLevel == other.m_abitlityLevel;
 }
 
 bool Hero::ReceiveDamage(int damageAmount)
@@ -75,6 +88,7 @@ bool Hero::ReceiveDamage(int damageAmount)
 	if (damageAmount >= m_hitPoints)
 	{
 		m_hitPoints = 0;
+		m_team->ResolveHeroDeath(*this);
 		m_isAlive = false;
 	}
 	else

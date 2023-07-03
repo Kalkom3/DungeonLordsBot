@@ -18,6 +18,8 @@ public:
 	/// <returns> Hero on given position </returns>
 	Hero& GetHero(int possition);
 
+	int GetTeamSize();
+
 	/// <summary> Reset any combat party effects </summary>
 	void SetDefaultTeamPermissions();
 
@@ -33,6 +35,9 @@ public:
 	bool GetTeamCanCast();
 	bool GetTeamCanConquer();
 
+	void ResolveHeroDeath(Hero& hero);
+
+	Hero& operator[](int pos);
 private:
 
 	bool m_teamCanHeal = true;
