@@ -3,7 +3,7 @@
 #include "DlLogger.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
-	m_hitPoints(hp), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false), m_team(nullptr)
+	m_hitPoints(hp), m_isAlive(true), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false), m_team(nullptr)
 {
 	m_teamPriority = heroClass >= HeroClass::WARRIOR ? static_cast<int>(heroClass) : 3;
 }
@@ -50,7 +50,6 @@ bool Hero::ResolveTopTag()
 	{
 		return false;
 	}
-	m_tags[m_tags.size() - 1];
 	m_tags.pop_back();
 	return true;
 	
@@ -85,15 +84,19 @@ bool Hero::operator==(const Hero& other) const
 
 bool Hero::ReceiveDamage(int damageAmount)
 {
+	LOG(DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ") receive damage:" << damageAmount;
 	if (damageAmount >= m_hitPoints)
 	{
 		m_hitPoints = 0;
 		m_team->ResolveHeroDeath(*this);
 		m_isAlive = false;
+		LOG(DEBUG) << "!DIED!";
 	}
 	else
 	{
 		m_hitPoints -= damageAmount;
+		m_isAlive = true;
+		LOG(DEBUG) << "After damage: Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ")";
 	}
 	return m_isAlive;
 }
@@ -101,4 +104,13 @@ bool Hero::ReceiveDamage(int damageAmount)
 void Hero::SetPositionAssigned()
 {
 	m_possitionAssigned = true;
+}
+
+std::vector<std::reference_wrapper<Hero> > Hero::GetTargetEntities()
+{
+	std::vector<std::reference_wrapper<Hero> >resultVector;
+
+	resultVector.push_back(*this);
+
+	return resultVector;
 }

@@ -2,9 +2,10 @@
 #include <vector>
 #include <memory>
 
+#include "ITarget.h"
 #include "Hero.h"
 
-class HeroesTeam
+class HeroesTeam : public ITarget 
 {
 public:
 	HeroesTeam();
@@ -38,6 +39,10 @@ public:
 	void ResolveHeroDeath(Hero& hero);
 
 	Hero& operator[](int pos);
+
+
+	// Inherited via ITarget
+	virtual std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
 private:
 
 	bool m_teamCanHeal = true;
@@ -45,4 +50,5 @@ private:
 	bool m_teamCanConquer = true;
 
 	std::vector<Hero>m_heroes;
+
 };

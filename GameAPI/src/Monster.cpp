@@ -20,6 +20,6 @@ void Monster::Activate(HeroesTeam& heroTeam)
 {
 	for (int i = 0; i < m_targets.size(); i++)
 	{
-		m_monsterCard.GetAction().ApplyEffect(heroTeam.GetHero(m_targets.at(i)));
+		//m_monsterCard.GetAction().ApplyEffect(heroTeam.GetHero(m_targets.at(i)));
 	}
 }

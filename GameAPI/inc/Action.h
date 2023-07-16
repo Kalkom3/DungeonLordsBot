@@ -4,6 +4,7 @@
 #include "Effect.h"
 
 class Hero;
+class HeroesTeam;
 
 
 /// <summary>
@@ -13,12 +14,13 @@ class Action
 {
 public:
 	Action(std::string name);
-	void ApplyEffect(Hero& hero) const;
+	void ApplyEffect(HeroesTeam& hero) const;
 	bool GetRequireTargets() const;
 private:
 	void ResolveSpecialEffect(Hero& hero) const;
 	std::vector<Effect> GetActionEffectsFromName(std::string name);
 
+	int m_targetPosition;
 	bool m_requireTargets = false;
 	std::vector<Effect> m_actionEffects;
 };

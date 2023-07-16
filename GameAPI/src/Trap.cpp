@@ -1,5 +1,6 @@
 #include "Trap.h"
 #include "HeroesTeam.h"
+#include "DlLogger.h"
 
 Trap::Trap(const TrapCard& baseTrap):
 	m_trapCard(baseTrap)
@@ -17,8 +18,16 @@ void Trap::AddTarget(int targetPos)
 
 void Trap::Activate(HeroesTeam& heroTeam)
 {
-	for (int i = 0; i < m_targets.size(); i++)
+	LOG(DEBUG) << "Team before:";
+	for (int i = 0; i < heroTeam.GetTeamSize(); i++)
 	{
-		m_trapCard.GetAction().ApplyEffect(heroTeam.GetHero(m_targets.at(i)));
+		LOG(DEBUG) << static_cast<int>(heroTeam.GetHero(i).GetClass()) << "-" << heroTeam.GetHero(i).GetHitPoints();
 	}
+	m_trapCard.GetAction().ApplyEffect(heroTeam);
+	LOG(DEBUG) << "Team after:";
+	for (int i = 0; i < heroTeam.GetTeamSize(); i++)
+	{
+		LOG(DEBUG) << static_cast<int>(heroTeam.GetHero(i).GetClass()) << "-" << heroTeam.GetHero(i).GetHitPoints();
+	}
+	
 }

@@ -1,8 +1,11 @@
 #pragma once
-#include "IHero.h"
+
+#include "ITarget.h"
+
 #include <vector>
 #include <string>
 
+class HeroesTeam;
 enum class HeroClass
 {
 	PALLADIN,
@@ -13,7 +16,7 @@ enum class HeroClass
 };
 
 
-class Hero
+class Hero : public ITarget
 {
 public:
 	Hero(int hp, int skill, HeroClass heroClass);
@@ -55,6 +58,8 @@ public:
 	bool operator<(const Hero& other) const;
 	bool operator==(const Hero& other) const;
 
+	std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
+
 private:
 	std::vector<std::string>m_tags;
 	HeroesTeam* m_team;
@@ -62,7 +67,7 @@ private:
 	int m_hitPoints;
 	int m_abitlityLevel;
 	int m_teamPriority;
-	bool m_isAlive = true;
+	bool m_isAlive;
 	bool m_possitionAssigned;
 
 };

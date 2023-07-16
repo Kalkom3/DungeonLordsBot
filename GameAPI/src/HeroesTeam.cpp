@@ -89,3 +89,13 @@ Hero& HeroesTeam::operator[](int position)
 {
 	return GetHero(position);
 }
+
+std::vector<std::reference_wrapper<Hero> > HeroesTeam::GetTargetEntities()
+{
+	std::vector<std::reference_wrapper<Hero> >resultVector;
+	for (Hero& hero : m_heroes)
+	{
+		resultVector.push_back(hero);
+	}
+	return resultVector;
+}

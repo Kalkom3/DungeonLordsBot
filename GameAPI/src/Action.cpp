@@ -1,25 +1,19 @@
 #include "Action.h"
 #include "Hero.h"
 #include "HeroesTeam.h"
+#include "EffectsMap.h"
 
 Action::Action(std::string name) :
-	m_actionEffects(GetActionEffectsFromName(name))
+	m_actionEffects(GetActionEffectsFromName(name)), m_targetPosition(0)
 {
-	for (const Effect& effect : m_actionEffects)
-	{
-		if (effect.targetType == TargetType::TARGET)
-		{
-			m_requireTargets = true;
-		}
-	}
+
 }
 
-void Action::ApplyEffect(Hero& hero) const
+void Action::ApplyEffect(HeroesTeam& heroes) const
 {
 	for (const Effect& effect : m_actionEffects)
 	{
-		hero.ReceiveDamage(effect.damage);
-		ResolveSpecialEffect(hero);
+		effect(heroes, m_targetPosition);
 	}
 }
 
@@ -30,35 +24,7 @@ bool Action::GetRequireTargets() const
 
 void Action::ResolveSpecialEffect(Hero& hero) const
 {
-	switch (m_actionEffects[0].specialEffect)
-	{
-	case SpecialEffects::CANCEL_ABILITY:
-		if (hero.GetClass() == HeroClass::MAGE)
-		{
-			hero.GetTeam()->SetTeamCanCast(false);
-		}
-		else if (hero.GetClass() == HeroClass::PRIEST)
-		{
-			hero.GetTeam()->SetTeamCanHeal(false);
-		}
-		break;
 
-	case SpecialEffects::NO_CONQUEST:
-		hero.GetTeam()->SetTeamCanConquer(false);
-		break;
-
-	case SpecialEffects::NO_HEALING:
-		hero.GetTeam()->SetTeamCanHeal(false);
-		break;
-
-	case SpecialEffects::POISON:
-			hero.SetPosioned(true);
-		break;
-
-	case SpecialEffects::NONE:
-	default:
-		break;
-	}
 }
 
 std::vector<Effect> Action::GetActionEffectsFromName(std::string name)
