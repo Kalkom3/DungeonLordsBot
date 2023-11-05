@@ -1,4 +1,4 @@
-﻿cmake_minimum_required (VERSION 3.12)
+﻿cmake_minimum_required (VERSION 3.28)
 
 project (DungeonLordsBot)
 set(CMAKE_CXX_STANDARD 20)
@@ -12,7 +12,9 @@ add_subdirectory(GameApi)
 add_subdirectory(GameAPITests)
 add_subdirectory(Logger)
 
-
+if(POLICY CMP0135)
+  cmake_policy(SET CMP0135 NEW)
+endif()
 
 include(FetchContent)
 FetchContent_Declare(

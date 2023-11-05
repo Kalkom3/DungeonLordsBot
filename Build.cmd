@@ -1,4 +1,5 @@
-cd D:\Tworzenie\C++\DungeonLordsBot
+
+cd /D "%~dp0"
 echo off
 md build
 cd build
