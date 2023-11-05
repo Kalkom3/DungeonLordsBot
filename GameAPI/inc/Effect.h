@@ -31,12 +31,12 @@ enum class EffectType
 class Effect
 {
 public:
-	Effect(EffectType type, std::function<void(ITarget& target, int targetPos)> effectFunction);
+	Effect(EffectType type, std::function<int(ITarget& target, int targetPos)> effectFunction);
 	void ApplayEffect(ITarget& target, int targetPos);
 	void operator()(ITarget& target, int targetPos) const;
 private:
 	EffectType m_effectType;
-	std::function<void(ITarget& target, int targetPos)>m_effect = [](ITarget& target, int targetPos) { return false; };
+	std::function<int(ITarget& target, int targetPos)>m_effect = [](ITarget& target, int targetPos) { return 0; };
 
 };
 

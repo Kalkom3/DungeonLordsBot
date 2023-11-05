@@ -27,6 +27,7 @@ EffectT::EffectT(int _damage, TargetType _targetType, std::function<bool(HeroesT
 				specialEffectT(targets);
 				if (target.value().get().ReceiveDamage(m_damage))
 				{
+
 				}
 			}
 			else
@@ -93,7 +94,7 @@ std::optional<std::reference_wrapper<Hero>> EffectT::FindTarget(HeroesTeam& targ
 	}
 }
 
-Effect::Effect(EffectType type, std::function<void(ITarget& target, int targetPos)> effectFunction) :
+Effect::Effect(EffectType type, std::function<int(ITarget& target, int targetPos)> effectFunction) :
 	m_effectType(type), m_effect(effectFunction)
 {
 }
