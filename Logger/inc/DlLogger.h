@@ -3,7 +3,6 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <mutex>
 
 #define LOG(level) DlLogger(level,"Logs")
 
@@ -30,8 +29,10 @@ public:
 
 
     template<class T>
-    DlLogger& operator<<(const T& msg) {
-        if (msglevel >= LoggingConfig::s_logLevel) {
+    DlLogger& operator<<(const T& msg) 
+    {
+        if (msglevel >= LoggingConfig::s_logLevel) 
+        {
             if (LoggingConfig::s_printToConsole)
             {
                 std::cerr << msg;

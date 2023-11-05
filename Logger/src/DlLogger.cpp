@@ -19,12 +19,15 @@ DlLogger::DlLogger(logLevel type, std::filesystem::path logPath)
         operator << ("[" + GetLabel(type) + "]>");
     }
 
-    logFile.open(GetLogFilePath(logPath), std::ios::app);
+    logFile.open(GetLogFilePath(logPath), std::ios::out | std::ios::app | std::ios::ate);
 
     if (logFile.is_open())
     {
-        int length = logFile.tellp();
-        logFile << ("[" + GetLabel(type) + "]>");
+        if (msglevel >= LoggingConfig::s_logLevel)
+        {
+            logFile.seekp(std::ios::end);
+            logFile << ("[" + GetLabel(type) + "]>");
+        }
     }
     else
     {
@@ -52,7 +55,13 @@ std::filesystem::path DlLogger::GetLogFilePath(std::filesystem::path logsDirPath
         return LoggingConfig::s_logFilePath;
     }
 
-    std::filesystem::path absolutePath = std::filesystem::current_path().parent_path() / logsDirPath;
+    std::filesystem::path sourcePath = std::filesystem::current_path();
+    std::filesystem::path absolutePath = sourcePath.parent_path() / logsDirPath;
+    if (!std::filesystem::exists(absolutePath))
+    {
+        std::filesystem::create_directory(absolutePath);
+    }
+
     auto dirIter = std::filesystem::directory_iterator(absolutePath);
 
     int fileCount = std::count_if(
@@ -62,7 +71,7 @@ std::filesystem::path DlLogger::GetLogFilePath(std::filesystem::path logsDirPath
     );
 
     LoggingConfig::s_logFilePath = absolutePath / ("Logs_" + std::to_string(fileCount + 1) + ".txt");
-    return absolutePath / ("Logs_" + std::to_string(fileCount+1) + ".txt");
+    return absolutePath / ("Logs_" + std::to_string(fileCount + 1) + ".txt");
 }
 
 std::string DlLogger::GetLabel(logLevel type)
