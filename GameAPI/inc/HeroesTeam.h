@@ -19,7 +19,7 @@ public:
 	/// <returns> Hero on given position </returns>
 	Hero& GetHero(int possition);
 
-	int GetTeamSize();
+	size_t GetTeamSize();
 
 	/// <summary> Reset any combat party effects </summary>
 	void SetDefaultTeamPermissions();
@@ -37,6 +37,7 @@ public:
 	bool GetTeamCanConquer();
 
 	void ResolveHeroDeath(Hero& hero);
+	void CheckHeroesTeam();
 
 	Hero& operator[](int pos);
 

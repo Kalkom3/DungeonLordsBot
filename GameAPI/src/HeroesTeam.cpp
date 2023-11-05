@@ -1,5 +1,6 @@
 #include "HeroesTeam.h"
 
+#include <DlLogger.h>
 #include <algorithm>
 
 HeroesTeam::HeroesTeam()
@@ -29,7 +30,7 @@ Hero& HeroesTeam::GetHero(int position)
 	return m_heroes[position];
 }
 
-int HeroesTeam::GetTeamSize()
+size_t HeroesTeam::GetTeamSize()
 {
 	return m_heroes.size();
 }
@@ -73,16 +74,25 @@ bool HeroesTeam::GetTeamCanConquer()
 
 void HeroesTeam::ResolveHeroDeath(Hero& hero)
 {
-	int heroPos = -1;// = std::find(m_heroes.begin(), m_heroes.end(), hero);
-	for (int i = 0; i < m_heroes.size(); i++)
+	auto heroPos = std::find(m_heroes.begin(), m_heroes.end(), hero);
+
+	while(heroPos->ResolveTopTag()) {}
+
+	m_heroes.erase(heroPos);
+	CheckHeroesTeam();
+}
+
+void HeroesTeam::CheckHeroesTeam()
+{
+	LOG(DEBUG) << "";
+	LOG(DEBUG) << "-----";
+	LOG(DEBUG) << "HeroTeam status:";
+	for (int i = 0; i < GetTeamSize(); i++)
 	{
-		if (m_heroes[i] == hero)
-		{
-			heroPos = i;
-		}
+		LOG(DEBUG) << static_cast<int>(GetHero(i).GetClass()) << "-" << GetHero(i).GetHitPoints();
 	}
-	while(m_heroes[heroPos].ResolveTopTag()) {}
-	m_heroes.erase(m_heroes.begin() + heroPos);
+	LOG(DEBUG) << "-----";
+	LOG(DEBUG) << "";
 }
 
 Hero& HeroesTeam::operator[](int position)
@@ -99,3 +109,4 @@ std::vector<std::reference_wrapper<Hero> > HeroesTeam::GetTargetEntities()
 	}
 	return resultVector;
 }
+

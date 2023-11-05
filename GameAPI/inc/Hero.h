@@ -15,7 +15,6 @@ enum class HeroClass
 	MAGE
 };
 
-
 class Hero : public ITarget
 {
 public:
