@@ -6,7 +6,7 @@
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
 	m_hitPoints(hp), m_isAlive(true), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false), m_team(nullptr)
 {
-	m_teamPriority = heroClass >= HeroClass::WARRIOR ? static_cast<int>(heroClass) : 3;
+	m_teamPriority = heroClass <= HeroClass::WARRIOR ? static_cast<int>(heroClass) : 3;
 }
 
 HeroClass Hero::GetClass() const
@@ -71,17 +71,17 @@ bool Hero::operator<(const Hero& other) const
 		if (this->GetTeamPriority() > 2)
 		{
 			LOG(L_DEBUG) << "Result = " << !m_possitionAssigned;
-			return !m_possitionAssigned;
+			return m_possitionAssigned;
 		}
 		else
 		{
 			LOG(L_DEBUG) << "Result = " << m_possitionAssigned;
-			return m_possitionAssigned;
+			return !m_possitionAssigned;
 		}
 	}
 
 	LOG(L_DEBUG) << "Result = " << (this->GetTeamPriority() > other.GetTeamPriority());
-	return this->GetTeamPriority() > other.GetTeamPriority();
+	return this->GetTeamPriority() < other.GetTeamPriority();
 
 }
 

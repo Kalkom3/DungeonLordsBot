@@ -12,8 +12,10 @@ TEST(HeroTeamTests, HeroPriorityTest) {
 	testTeam.AddHero(Hero(2, 1, HeroClass::WARRIOR));
 	testTeam.AddHero(Hero(3, 1, HeroClass::PRIEST));
 	testTeam.AddHero(Hero(1, 1, HeroClass::WARRIOR));
+	testTeam.AddHero(Hero(4, 1, HeroClass::PRIEST));
 
 	EXPECT_EQ(testTeam.GetHero(0).GetHitPoints(), 1);
 	EXPECT_EQ(testTeam.GetHero(1).GetHitPoints(), 2);
 	EXPECT_EQ(testTeam.GetHero(2).GetHitPoints(), 3);
+	EXPECT_EQ(testTeam.GetHero(3).GetHitPoints(), 4);
 }
