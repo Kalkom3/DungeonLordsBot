@@ -26,6 +26,12 @@ workspace "DungeonLordsBot"
     filter {}
     location "Build" 
 
+    filter "action:vs2022"
+    prebuildcommands {
+        "../Build.cmd vs2022"
+    }
+    filter{}
+
     addStdStaticLibProject("DlLogger")
 
     addStdStaticLibProject("GameAPI")
