@@ -1,5 +1,6 @@
 #include "Hero.h"
 #include "HeroesTeam.h"
+#include "TagsMap.h"
 #include "DlLogger.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
@@ -44,11 +45,18 @@ void Hero::AddTag(std::string newTag)
 	m_tags.push_back(newTag);
 }
 
-bool Hero::ResolveTopTag()
+bool Hero::ResolveTopTag() 
 {
 	if (m_tags.size() == 0)
 	{
+		LOG(DEBUG) << "--> Hero has no more tags";
 		return false;
+	}
+	auto resolvedTag = m_tags.at(m_tags.size() - 1);
+	LOG(DEBUG) << "--> " << resolvedTag;
+	//if (TagsMap::s_tagsMap.contains(resolvedTag))
+	{
+		LOG(DEBUG) << "TEST" << TagsMap::test();
 	}
 	m_tags.pop_back();
 	return true;

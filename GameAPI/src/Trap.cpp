@@ -19,15 +19,9 @@ void Trap::AddTarget(int targetPos)
 void Trap::Activate(HeroesTeam& heroTeam)
 {
 	LOG(DEBUG) << "Team before:";
-	for (int i = 0; i < heroTeam.GetTeamSize(); i++)
-	{
-		LOG(DEBUG) << static_cast<int>(heroTeam.GetHero(i).GetClass()) << "-" << heroTeam.GetHero(i).GetHitPoints();
-	}
-	m_trapCard.GetAction().ApplyEffect(heroTeam);
+	heroTeam.CheckHeroesTeam();
+	m_trapCard.GetAction().ApplyEffect(heroTeam, m_targets);
 	LOG(DEBUG) << "Team after:";
-	for (int i = 0; i < heroTeam.GetTeamSize(); i++)
-	{
-		LOG(DEBUG) << static_cast<int>(heroTeam.GetHero(i).GetClass()) << "-" << heroTeam.GetHero(i).GetHitPoints();
-	}
+	heroTeam.CheckHeroesTeam();
 	
 }

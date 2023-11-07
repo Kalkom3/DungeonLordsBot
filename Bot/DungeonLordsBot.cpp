@@ -16,11 +16,11 @@ int main()
 	testTeam.AddHero(Hero(2, 1, HeroClass::PRIEST));
 	testTeam.AddHero(Hero(4, 1, HeroClass::MAGE));
 
-	TrapCard testTrap("FireWall");
+	TrapCard testTrap("Hole");
 	
 	BattleRound testRound(testTeam);
 
-	testRound.AddTrap(testTrap);
+	testRound.AddTrap(testTrap, 1);
 
 	testRound.StartBattle();
 

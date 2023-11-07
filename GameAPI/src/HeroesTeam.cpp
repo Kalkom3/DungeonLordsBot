@@ -72,13 +72,23 @@ bool HeroesTeam::GetTeamCanConquer()
 	return m_teamCanConquer;
 }
 
+void HeroesTeam::ResolveTeamTags()
+{
+	for (Hero& hero : m_heroes)
+	{
+		while (hero.ResolveTopTag()) {
+		}
+	}
+}
+
 void HeroesTeam::ResolveHeroDeath(Hero& hero)
 {
-	auto heroPos = std::find(m_heroes.begin(), m_heroes.end(), hero);
+	auto dyingHero = std::find(m_heroes.begin(), m_heroes.end(), hero);
 
-	while(heroPos->ResolveTopTag()) {}
+	while (dyingHero->ResolveTopTag()) {
+	}
 
-	m_heroes.erase(heroPos);
+	m_heroes.erase(dyingHero);
 	CheckHeroesTeam();
 }
 

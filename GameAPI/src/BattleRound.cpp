@@ -31,13 +31,21 @@ void BattleRound::AddTrap(const TrapCard& newTrapCard, int targetPosition)
 
 void BattleRound::StartBattle()
 {
+	//Trap phase
 	for (Trap& trap : m_Traps)
 	{
 		trap.Activate(m_heroes);
 	}
+	m_heroes.ResolveTeamTags();
+	//Fast spell phase
 
+	//Monsters phase
 	for (Monster& monster : m_Monsters)
 	{
 		monster.Activate(m_heroes);
 	}
+	//Slow spell phase
+	//Healing phase
+	//Conques phase
+
 }

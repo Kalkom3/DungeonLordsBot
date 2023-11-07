@@ -36,6 +36,7 @@ public:
 	bool GetTeamCanCast();
 	bool GetTeamCanConquer();
 
+	void ResolveTeamTags();
 	void ResolveHeroDeath(Hero& hero);
 	void CheckHeroesTeam();
 
