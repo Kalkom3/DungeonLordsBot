@@ -14,7 +14,7 @@ class Action
 {
 public:
 	Action(std::string name);
-	void ApplyEffect(HeroesTeam& hero) const;
+	void ApplyEffect(HeroesTeam& heroint, std::vector<int> targets) const;
 	bool GetRequireTargets() const;
 private:
 	void ResolveSpecialEffect(Hero& hero) const;

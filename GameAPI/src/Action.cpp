@@ -9,11 +9,24 @@ Action::Action(std::string name) :
 
 }
 
-void Action::ApplyEffect(HeroesTeam& heroes) const
+void Action::ApplyEffect(HeroesTeam& heroes, std::vector<int> targets) const
 {
+	int targetIterator = 0;
 	for (const Effect& effect : m_actionEffects)
 	{
-		effect(heroes, m_targetPosition);
+		if (targets.size() > 0)
+		{
+			effect(heroes, targets[targetIterator]);
+			if (targets.size() == 2)
+			{
+				targetIterator = 1;
+			}
+		}
+		else
+		{
+			effect(heroes, 0);
+		}
+
 	}
 }
 

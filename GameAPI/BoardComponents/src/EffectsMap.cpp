@@ -1,7 +1,4 @@
 #include "EffectsMap.h"
-#include "ITarget.h"
-#include "Hero.h"
-#include "DlLogger.h"
 #include "EffectsFactory.h"
 
 std::map<std::string, Effect> EffectsMap::s_effectsMap = {
@@ -11,7 +8,7 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 			EffectType::DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::ALL, 1)
 		)
-	},	
+	},
 	{
 		"FireWall2",
 		Effect(
@@ -36,15 +33,29 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		"Hole",
 		Effect(
-			EffectType::DAMAGE,
-			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 2)
+			EffectType::GROUP_DEBUFF,
+			EffectsFactory::CreateDebuffFunction(TargetType::FRONT, "Stunned")
 		)
 	},
 	{
 		"Hole2",
 		Effect(
-			EffectType::GROUP_DEBUFF,
+			EffectType::DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 2)
+		)
+	},
+	{
+		"Posioned_Dart",
+		Effect(
+			EffectType::TARGET_DEBUFF,
+			EffectsFactory::CreateDebuffFunction(TargetType::TARGET, "Posioned")
+		)
+	},
+	{
+		"Posioned_Dart2",
+		Effect(
+			EffectType::DAMAGE,
+			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 1)
 		)
 	},
 };
