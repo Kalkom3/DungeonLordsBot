@@ -30,7 +30,7 @@ bool Action::GetRequireTargets() const
 
 void Action::ResolveSpecialEffect(Hero& hero) const
 {
-	switch (m_actionEffect.specialEffect)
+	switch (m_actionEffects[0].specialEffect)
 	{
 	case SpecialEffects::CANCEL_ABILITY:
 		if (hero.GetClass() == HeroClass::MAGE)

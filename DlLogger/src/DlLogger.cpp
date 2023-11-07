@@ -3,7 +3,7 @@
 #include <ios>
 
 bool LoggingConfig::s_printToConsole = false;
-logLevel LoggingConfig::s_logLevel = DEBUG;
+logLevel LoggingConfig::s_logLevel = L_DEBUG;
 std::filesystem::path LoggingConfig::s_logFilePath = "";
 
 DlLogger::DlLogger()
@@ -78,7 +78,7 @@ std::string DlLogger::GetLabel(logLevel type)
 {
     std::string label;
     switch (type) {
-    case DEBUG: label = "DEBUG"; break;
+    case L_DEBUG: label = "L_DEBUG"; break;
     case INFO:  label = "INFO "; break;
     case WARN:  label = "WARN "; break;
     case ERROR: label = "ERROR"; break;

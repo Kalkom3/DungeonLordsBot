@@ -7,7 +7,7 @@
 #define LOG(level) DlLogger(level,"Logs")
 
 enum logLevel {
-    DEBUG,
+    L_DEBUG,
     INFO,
     WARN,
     ERROR
@@ -47,5 +47,5 @@ private:
     std::string GetLabel(logLevel type);
     std::ofstream logFile;
     bool opened = false;
-    logLevel msglevel = DEBUG;
+    logLevel msglevel = L_DEBUG;
 };

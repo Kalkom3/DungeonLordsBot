@@ -40,22 +40,22 @@ bool Hero::GetPositionAssigned() const
 
 bool Hero::operator<(const Hero& other) const
 {
-	LOG(DEBUG) << "Hero1(" << this->GetTeamPriority() << ", " << this->m_possitionAssigned << ") - Hero2(" << other.GetTeamPriority() << ")";
+	LOG(L_DEBUG) << "Hero1(" << this->GetTeamPriority() << ", " << this->m_possitionAssigned << ") - Hero2(" << other.GetTeamPriority() << ")";
 	if (this->GetTeamPriority() == other.GetTeamPriority())
 	{
 		if (this->GetTeamPriority() > 2)
 		{
-			LOG(DEBUG) << "Result = " << !m_possitionAssigned;
+			LOG(L_DEBUG) << "Result = " << !m_possitionAssigned;
 			return !m_possitionAssigned;
 		}
 		else
 		{
-			LOG(DEBUG) << "Result = " << m_possitionAssigned;
+			LOG(L_DEBUG) << "Result = " << m_possitionAssigned;
 			return m_possitionAssigned;
 		}
 	}
 
-	LOG(DEBUG) << "Result = " << (this->GetTeamPriority() > other.GetTeamPriority());
+	LOG(L_DEBUG) << "Result = " << (this->GetTeamPriority() > other.GetTeamPriority());
 	return this->GetTeamPriority() > other.GetTeamPriority();
 
 }
