@@ -2,6 +2,7 @@
 
 #include "gmock/gmock.h"
 #include "HeroesTeam.h"
+#include "IHero.h"
 
 class HeroTeamMock : public HeroesTeam
 {
