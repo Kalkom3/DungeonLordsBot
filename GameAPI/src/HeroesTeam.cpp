@@ -16,7 +16,7 @@ void HeroesTeam::AddHero(Hero&& hero)
 	{
 		std::sort(m_heroes.begin(), m_heroes.end());
 	}
-	for (int i = 0; i < m_heroes.size(); i++)
+	for (size_t i = 0; i < m_heroes.size(); i++)
 	{
 		if (m_heroes[i].GetTeam() == nullptr)
 		{
@@ -94,15 +94,15 @@ void HeroesTeam::ResolveHeroDeath(Hero& hero)
 
 void HeroesTeam::CheckHeroesTeam()
 {
-	LOG(DEBUG) << "";
-	LOG(DEBUG) << "-----";
-	LOG(DEBUG) << "HeroTeam status:";
-	for (int i = 0; i < GetTeamSize(); i++)
+	LOG(L_DEBUG) << "";
+	LOG(L_DEBUG) << "-----";
+	LOG(L_DEBUG) << "HeroTeam status:";
+	for (size_t i = 0; i < GetTeamSize(); i++)
 	{
-		LOG(DEBUG) << static_cast<int>(GetHero(i).GetClass()) << "-" << GetHero(i).GetHitPoints();
+		LOG(L_DEBUG) << static_cast<int>(GetHero(i).GetClass()) << "-" << GetHero(i).GetHitPoints();
 	}
-	LOG(DEBUG) << "-----";
-	LOG(DEBUG) << "";
+	LOG(L_DEBUG) << "-----";
+	LOG(L_DEBUG) << "";
 }
 
 Hero& HeroesTeam::operator[](int position)

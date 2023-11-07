@@ -18,10 +18,10 @@ void Trap::AddTarget(int targetPos)
 
 void Trap::Activate(HeroesTeam& heroTeam)
 {
-	LOG(DEBUG) << "Team before:";
+	LOG(L_DEBUG) << "Team before:";
 	heroTeam.CheckHeroesTeam();
 	m_trapCard.GetAction().ApplyEffect(heroTeam, m_targets);
-	LOG(DEBUG) << "Team after:";
+	LOG(L_DEBUG) << "Team after:";
 	heroTeam.CheckHeroesTeam();
 	
 }

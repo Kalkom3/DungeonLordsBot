@@ -49,14 +49,14 @@ bool Hero::ResolveTopTag()
 {
 	if (m_tags.size() == 0)
 	{
-		LOG(DEBUG) << "--> Hero has no more tags";
+		LOG(L_DEBUG) << "--> Hero has no more tags";
 		return false;
 	}
 	auto resolvedTag = m_tags.at(m_tags.size() - 1);
-	LOG(DEBUG) << "--> " << resolvedTag;
+	LOG(L_DEBUG) << "--> " << resolvedTag;
 	//if (TagsMap::s_tagsMap.contains(resolvedTag))
 	{
-		LOG(DEBUG) << "TEST" << TagsMap::test();
+		LOG(L_DEBUG) << "TEST" << TagsMap::test();
 	}
 	m_tags.pop_back();
 	return true;
@@ -92,19 +92,19 @@ bool Hero::operator==(const Hero& other) const
 
 bool Hero::ReceiveDamage(int damageAmount)
 {
-	LOG(DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ") receive damage:" << damageAmount;
+	LOG(L_DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ") receive damage:" << damageAmount;
 	if (damageAmount >= m_hitPoints)
 	{
 		m_hitPoints = 0;
 		m_team->ResolveHeroDeath(*this);
 		m_isAlive = false;
-		LOG(DEBUG) << "!DIED!";
+		LOG(L_DEBUG) << "!DIED!";
 	}
 	else
 	{
 		m_hitPoints -= damageAmount;
 		m_isAlive = true;
-		LOG(DEBUG) << "After damage: Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ")";
+		LOG(L_DEBUG) << "After damage: Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ")";
 	}
 	return m_isAlive;
 }

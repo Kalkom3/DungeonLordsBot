@@ -10,7 +10,7 @@ int main()
 	HeroesTeam testTeam;
 
 	LoggingConfig::s_printToConsole = true;
-	LoggingConfig::s_logLevel = logLevel::DEBUG;
+	LoggingConfig::s_logLevel = logLevel::L_DEBUG;
 	
 	testTeam.AddHero(Hero(1, 1, HeroClass::WARRIOR));
 	testTeam.AddHero(Hero(2, 1, HeroClass::PRIEST));
