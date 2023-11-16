@@ -16,11 +16,11 @@ int main()
 	testTeam.AddHero(Hero(2, 1, HeroClass::PRIEST));
 	testTeam.AddHero(Hero(4, 1, HeroClass::MAGE));
 
-	TrapCard testTrap("Hole");
-	
+	TrapCard testTrap(TrapsList::POSIONED_FOOD);
 	BattleRound testRound(testTeam);
 
-	testRound.AddTrap(testTrap, 1);
+	testRound.AddTrap(testTrap, 2);
+	testRound.AddTrap(testTrap, 2);
 
 	testRound.StartBattle();
 

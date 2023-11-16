@@ -6,8 +6,16 @@
 
 #include "HeroesTeam.h"
 
+enum class TagsList
+{
+	STUNNED,
+	POSIONED,
+	SILIENCED
+};
+
 class TagsMap
 {
 public:
-	static std::map<std::string, std::function<void(ITarget& target)>> s_tagsMap;
+	static std::map<TagsList, std::function<void(ITarget& target)>> s_tagsMap;
+	static std::string GetStringFromTag(TagsList tag);
 };

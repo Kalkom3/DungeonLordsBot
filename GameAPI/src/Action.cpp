@@ -43,12 +43,14 @@ void Action::ResolveSpecialEffect(Hero& hero) const
 std::vector<Effect> Action::GetActionEffectsFromName(std::string name)
 {
 	std::vector<Effect>actionEffects;
-
-	actionEffects.push_back(EffectsMap::s_effectsMap.at(name));
-	
-	if (EffectsMap::s_effectsMap.contains(name + "2"))
+	if (EffectsMap::s_effectsMap.contains(name))
 	{
-		actionEffects.push_back(EffectsMap::s_effectsMap.at(name + "2"));
+		actionEffects.push_back(EffectsMap::s_effectsMap.at(name));
+
+		if (EffectsMap::s_effectsMap.contains(name + "2"))
+		{
+			actionEffects.push_back(EffectsMap::s_effectsMap.at(name + "2"));
+		}
 	}
 
 	return actionEffects;

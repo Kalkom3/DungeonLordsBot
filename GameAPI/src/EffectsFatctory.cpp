@@ -7,7 +7,7 @@ std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDamageE
 {
 	if (targetType == TargetType::ALL)
 	{
-		return [damageAmount](ITarget& targets, int targetPos) -> int {
+		return [damageAmount](ITarget& targets, int targetPos)  -> int {
 			int killCount = 0;
 			for (int i = 0; i < targets.GetTargetEntities().size(); i++)
 			{
@@ -27,7 +27,8 @@ std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDamageE
 			auto target = targets.GetTargetEntities().at(
 				EffectsFactory::FindTargetingByType(targetType, targets.GetTargetEntities().size(), targetPos)
 			);
-			if (!target.get().ReceiveDamage(damageAmount))
+			int effectiveDamage = damageAmount <= 8 ? damageAmount : target.get().GetHitPoints();
+			if (!target.get().ReceiveDamage(effectiveDamage))
 			{
 				killCount++;
 			}
@@ -37,7 +38,7 @@ std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDamageE
 
 }
 
-std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDebuffFunction(TargetType targetType, std::string debuffTag)
+std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDebuffFunction(TargetType targetType, TagsList debuffTag)
 {
 	if (targetType == TargetType::ALL)
 	{

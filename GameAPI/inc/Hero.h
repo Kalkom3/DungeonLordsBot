@@ -6,6 +6,7 @@
 #include <string>
 
 class HeroesTeam;
+enum class TagsList;
 enum class HeroClass
 {
 	PALLADIN,
@@ -55,7 +56,7 @@ public:
 	int GetPosioned();
 	bool ResolvePosion();
 
-	void AddTag(std::string newTag);
+	void AddTag(TagsList newTag);
 	bool ResolveTopTag();
 
 	bool operator<(const Hero& other) const;
@@ -64,7 +65,7 @@ public:
 	std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
 
 private:
-	std::vector<std::string>m_tags;
+	std::vector<TagsList>m_tags;
 	HeroesTeam* m_team = nullptr;
 	HeroClass m_class;
 	int m_hitPoints = 1;

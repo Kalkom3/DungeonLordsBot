@@ -1,8 +1,8 @@
 #include "TagsMap.h"
 
-std::map<std::string, std::function<void(ITarget& target)>> TagsMap::s_tagsMap = {
+std::map<TagsList, std::function<void(ITarget& target)>> TagsMap::s_tagsMap = {
 	{
-		"Posioned",
+		TagsList::POSIONED,
 		[](ITarget& target) {
 			auto targetHero = target.GetTargetEntities().at(0);
 			if (targetHero.get().GetHitPoints() > 0)
@@ -12,14 +12,14 @@ std::map<std::string, std::function<void(ITarget& target)>> TagsMap::s_tagsMap =
 		}
 	},
 	{
-		"Stunned",
+		TagsList::STUNNED,
 		[](ITarget& target) {
 			auto targetHero = target.GetTargetEntities().at(0);
 			targetHero.get().GetTeam()->SetTeamCanConquer(false);
 		}
 	},
 	{
-		"Silienced",
+		TagsList::SILIENCED,
 		[](ITarget& target) {
 			auto targetHero = target.GetTargetEntities().at(0);
 			if (targetHero.get().GetClass() == HeroClass::MAGE)
@@ -34,3 +34,22 @@ std::map<std::string, std::function<void(ITarget& target)>> TagsMap::s_tagsMap =
 	}
 
 };
+
+std::string TagsMap::GetStringFromTag(TagsList tag)
+{
+	switch (tag)
+	{
+	case TagsList::STUNNED:
+			return "Stunned";
+		break;
+	case TagsList::POSIONED:
+		return "Posioned";
+		break;
+	case TagsList::SILIENCED:
+		return "Silienced";
+		break;
+	default:
+		return "ERROR TYPE";
+		break;
+	}
+}

@@ -61,7 +61,7 @@ bool Hero::ResolvePosion()
 	return false;
 }
 
-void Hero::AddTag(std::string newTag)
+void Hero::AddTag(TagsList newTag)
 {
 	m_tags.push_back(newTag);
 }
@@ -74,7 +74,7 @@ bool Hero::ResolveTopTag()
 		return false;
 	}
 	auto resolvedTag = m_tags.at(m_tags.size() - 1);
-	LOG(L_DEBUG) << "--> " << resolvedTag;
+	LOG(L_DEBUG) << "--> " << TagsMap::GetStringFromTag(resolvedTag);
 	if (TagsMap::s_tagsMap.contains(resolvedTag))
 	{
 		TagsMap::s_tagsMap.at(resolvedTag)(*this);
