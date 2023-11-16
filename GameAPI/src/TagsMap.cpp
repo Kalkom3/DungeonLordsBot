@@ -1,7 +1,6 @@
 #include "TagsMap.h"
-#include "HeroesTeam.h"
 
-std::map<std::string, std::function<void(ITarget& target)>> s_tagsMap = {
+std::map<std::string, std::function<void(ITarget& target)>> TagsMap::s_tagsMap = {
 	{
 		"Posioned",
 		[](ITarget& target) {
@@ -35,8 +34,3 @@ std::map<std::string, std::function<void(ITarget& target)>> s_tagsMap = {
 	}
 
 };
-
-int TagsMap::test()
-{
-	return 1;
-}

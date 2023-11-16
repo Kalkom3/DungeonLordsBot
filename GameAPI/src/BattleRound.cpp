@@ -45,7 +45,21 @@ void BattleRound::StartBattle()
 		monster.Activate(m_heroes);
 	}
 	//Slow spell phase
+	if (m_heroes.GetTeamCanCast())
+	{
+
+	}
+
 	//Healing phase
+	if (m_heroes.GetTeamCanHeal() && 0)
+	{
+
+	}
+
 	//Conques phase
+	if (m_heroes.GetTeamCanConquer())
+	{
+
+	}
 
 }

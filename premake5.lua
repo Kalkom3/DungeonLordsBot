@@ -15,6 +15,7 @@ end
 workspace "DungeonLordsBot"  
 --Glogal configs
     configurations { "Debug", "Release" } 
+    architecture "x86_64"
     language "C++"   
     cppdialect "C++20"
     filter "configurations:Debug"

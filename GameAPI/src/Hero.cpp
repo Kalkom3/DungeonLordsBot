@@ -1,6 +1,6 @@
 #include "Hero.h"
-#include "HeroesTeam.h"
 #include "TagsMap.h"
+#include "HeroesTeam.h"
 #include "DlLogger.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
@@ -54,10 +54,15 @@ bool Hero::ResolveTopTag()
 	}
 	auto resolvedTag = m_tags.at(m_tags.size() - 1);
 	LOG(L_DEBUG) << "--> " << resolvedTag;
-	//if (TagsMap::s_tagsMap.contains(resolvedTag))
+	if (TagsMap::s_tagsMap.contains(resolvedTag))
 	{
-		LOG(L_DEBUG) << "TEST" << TagsMap::test();
+		TagsMap::s_tagsMap.at(resolvedTag)(*this);
 	}
+	else
+	{
+		LOG(ERROR) << "Unknown TAG detected";
+	}
+
 	m_tags.pop_back();
 	return true;
 	
