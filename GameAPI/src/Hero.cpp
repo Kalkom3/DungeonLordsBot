@@ -4,7 +4,7 @@
 #include "DlLogger.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
-	m_hitPoints(hp), m_isAlive(true), m_abitlityLevel(skill), m_class(heroClass), m_possitionAssigned(false), m_team(nullptr)
+	m_hitPoints(hp), m_abitlityLevel(skill), m_class(heroClass)
 {
 	m_teamPriority = heroClass <= HeroClass::WARRIOR ? static_cast<int>(heroClass) : 3;
 }
@@ -38,6 +38,27 @@ int Hero::GetTeamPriority() const
 bool Hero::GetPositionAssigned() const
 {
 	return m_possitionAssigned;
+}
+
+void Hero::SetPosioned(int posionAmount)
+{
+	m_posioned = posionAmount;
+}
+
+int Hero::GetPosioned()
+{
+	return m_posioned;
+}
+
+bool Hero::ResolvePosion()
+{
+	if (m_posioned)
+	{
+		bool posionEffect = ReceiveDamage(m_posioned);
+		m_posioned = 0;
+		return posionEffect;
+	}
+	return false;
 }
 
 void Hero::AddTag(std::string newTag)

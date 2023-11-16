@@ -7,7 +7,7 @@ std::map<std::string, std::function<void(ITarget& target)>> TagsMap::s_tagsMap =
 			auto targetHero = target.GetTargetEntities().at(0);
 			if (targetHero.get().GetHitPoints() > 0)
 			{
-				targetHero.get().ReceiveDamage(2);
+				targetHero.get().SetPosioned(2);
 			}
 		}
 	},

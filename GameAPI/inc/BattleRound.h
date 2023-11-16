@@ -15,6 +15,7 @@ public:
 	void AddMonster(const MonsterCard& newMonsterCard, int targetPosition = -1, int secondTargetPosition = -1);
 	void AddTrap(const TrapCard& newTrapCard , int targetPosition = 0);
 	void StartBattle();
+	bool FinalizeRound();
 private:
 
 	std::vector<Trap>m_Traps;

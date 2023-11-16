@@ -51,6 +51,10 @@ public:
 	/// <summary> Marks hero as positioned in team </summary>
 	bool GetPositionAssigned() const;
 
+	void SetPosioned(int posioned);
+	int GetPosioned();
+	bool ResolvePosion();
+
 	void AddTag(std::string newTag);
 	bool ResolveTopTag();
 
@@ -61,12 +65,13 @@ public:
 
 private:
 	std::vector<std::string>m_tags;
-	HeroesTeam* m_team;
+	HeroesTeam* m_team = nullptr;
 	HeroClass m_class;
-	int m_hitPoints;
-	int m_abitlityLevel;
-	int m_teamPriority;
-	bool m_isAlive;
-	bool m_possitionAssigned;
+	int m_hitPoints = 1;
+	int m_abitlityLevel = 0;
+	int m_teamPriority = 0;
+	bool m_isAlive = true;
+	bool m_possitionAssigned = false;
+	int m_posioned = 0;
 
 };

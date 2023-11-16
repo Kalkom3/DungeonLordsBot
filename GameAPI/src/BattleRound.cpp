@@ -37,13 +37,20 @@ void BattleRound::StartBattle()
 		trap.Activate(m_heroes);
 	}
 	m_heroes.ResolveTeamTags();
+
 	//Fast spell phase
+	if (m_heroes.GetTeamCanCast())
+	{
+
+	}
 
 	//Monsters phase
 	for (Monster& monster : m_Monsters)
 	{
 		monster.Activate(m_heroes);
 	}
+	m_heroes.ResolveTeamTags();
+
 	//Slow spell phase
 	if (m_heroes.GetTeamCanCast())
 	{
@@ -61,5 +68,14 @@ void BattleRound::StartBattle()
 	{
 
 	}
+	FinalizeRound();
+}
 
+bool BattleRound::FinalizeRound()
+{
+	for (const auto& hero : m_heroes.GetTargetEntities())
+	{
+		hero.get().ResolvePosion();
+	}
+	return m_heroes.GetTeamSize()>0;
 }
