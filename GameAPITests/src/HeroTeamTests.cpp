@@ -1,7 +1,6 @@
 #include "gtest\gtest.h"
 #include "HeroesTeam.h"
 #include "Hero.h"
-#include "GameAPIMock.h"
 
 /// <summary>
 /// Test that heroes are being added to team in correct order

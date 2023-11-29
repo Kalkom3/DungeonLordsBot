@@ -13,7 +13,7 @@ bool Action::ApplyEffect(HeroesTeam& heroes, std::vector<int> targets) const
 {
 	bool exhust = true;
 	int kills = 0;
-	int targetIterator = 0;
+	int currentTarget = 0;
 	for (const Effect& effect : m_actionEffects)
 	{
 		if (effect.CheckRule(SpecialRules::ON_KILL) && kills == 0 || 
@@ -30,14 +30,19 @@ bool Action::ApplyEffect(HeroesTeam& heroes, std::vector<int> targets) const
 
 		if (targets.size() > 0)
 		{
-			kills += effect(heroes, targets[targetIterator]);
+			currentTarget = targets[0];
+			kills += effect(heroes, currentTarget);
 			if (targets.size() == 2)
 			{
-				targetIterator = 1;
+				currentTarget = targets[1];
+				if (kills > 0)
+				{
+					currentTarget--;
+				}
 			}
 			if (effect.CheckRule(SpecialRules::DOUBLE))
 			{
-				kills += effect(heroes, targets[targetIterator]);
+				kills += effect(heroes, currentTarget);
 			}
 		}
 		else

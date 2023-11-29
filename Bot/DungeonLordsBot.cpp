@@ -16,12 +16,12 @@ int main()
 	testTeam.AddHero(Hero(3, 1, HeroClass::PRIEST));
 	testTeam.AddHero(Hero(4, 1, HeroClass::MAGE));
 
-	MonsterCard testMonster(MonstersList::WITCH);
+	MonsterCard testMonster(MonstersList::SLIME);
 	TrapCard testTrap(TrapsList::POSIONED_FOOD);
 	BattleRound testRound(testTeam);
 
 	testRound.AddTrap(testTrap);
-	testRound.AddMonster(testMonster, 0, 1, 1);
+	testRound.AddMonster(testMonster, 0, 1);
 
 	testRound.StartBattle();
 
