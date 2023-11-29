@@ -10,7 +10,8 @@ enum class TagsList
 {
 	STUNNED,
 	POSIONED,
-	SILIENCED
+	SILIENCED,
+	NO_HEAL
 };
 
 class TagsMap

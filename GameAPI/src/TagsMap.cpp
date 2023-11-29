@@ -31,6 +31,13 @@ std::map<TagsList, std::function<void(ITarget& target)>> TagsMap::s_tagsMap = {
 				targetHero.get().GetTeam()->SetTeamCanHeal(false);
 			}
 		}
+	},
+	{
+		TagsList::NO_HEAL,
+		[](ITarget& target) {
+			auto targetHero = target.GetTargetEntities().at(0);
+			targetHero.get().GetTeam()->SetTeamCanHeal(false);
+		}
 	}
 
 };
@@ -47,6 +54,9 @@ std::string TagsMap::GetStringFromTag(TagsList tag)
 		break;
 	case TagsList::SILIENCED:
 		return "Silienced";
+		break;
+	case TagsList::NO_HEAL:
+		return "No_Heal";
 		break;
 	default:
 		return "ERROR TYPE";
