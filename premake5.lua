@@ -15,6 +15,7 @@ end
 workspace "DungeonLordsBot"  
 --Glogal configs
     configurations { "Debug", "Release" } 
+    architecture "x86_64"
     language "C++"   
     cppdialect "C++20"
     filter "configurations:Debug"
@@ -25,6 +26,12 @@ workspace "DungeonLordsBot"
     optimize "On" 
     filter {}
     location "Build" 
+
+    filter "action:vs2022"
+    prebuildcommands {
+        "../Build.cmd vs2022"
+    }
+    filter{}
 
     addStdStaticLibProject("DlLogger")
 

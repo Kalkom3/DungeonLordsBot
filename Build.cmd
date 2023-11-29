@@ -1,6 +1,3 @@
-
-cd /D "%~dp0"
 echo off
-md build
-cd build
-cmake .. -G "Visual Studio 17 2022"
+cd /D "%~dp0"
+premake5 %1

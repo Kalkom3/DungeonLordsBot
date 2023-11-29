@@ -2,9 +2,10 @@
 #include <vector>
 #include <memory>
 
+#include "ITarget.h"
 #include "Hero.h"
 
-class HeroesTeam
+class HeroesTeam : public ITarget 
 {
 public:
 	HeroesTeam();
@@ -17,6 +18,8 @@ public:
 	/// <param name="possition"> Hero position </param>
 	/// <returns> Hero on given position </returns>
 	Hero& GetHero(int possition);
+
+	size_t GetTeamSize();
 
 	/// <summary> Reset any combat party effects </summary>
 	void SetDefaultTeamPermissions();
@@ -33,6 +36,15 @@ public:
 	bool GetTeamCanCast();
 	bool GetTeamCanConquer();
 
+	void ResolveTeamTags();
+	void ResolveHeroDeath(Hero& hero);
+	void CheckHeroesTeam();
+
+	Hero& operator[](int pos);
+
+
+	// Inherited via ITarget
+	virtual std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
 private:
 
 	bool m_teamCanHeal = true;
@@ -40,4 +52,5 @@ private:
 	bool m_teamCanConquer = true;
 
 	std::vector<Hero>m_heroes;
+
 };

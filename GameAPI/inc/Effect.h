@@ -2,15 +2,12 @@
 
 #include<map>
 #include<string>
+#include<functional>
+#include<optional>
 
-enum class SpecialEffects
-{
-	NONE,
-	NO_CONQUEST,
-	NO_HEALING,
-	CANCEL_ABILITY,
-	POISON
-};
+class ITarget;
+class HeroesTeam;
+class Hero;
 
 enum class TargetType
 {
@@ -22,18 +19,42 @@ enum class TargetType
 	ALL
 };
 
-/// <summary>
-/// Struct containing data about effects of given card
-/// </summary>
-struct Effect
+enum class EffectType
 {
-	int damage;
-	TargetType targetType;
-	SpecialEffects specialEffect;
+	DAMAGE,
+	TARGET_DEBUFF,
+	GROUP_DEBUFF,
+	ON_KILL
 };
 
-class EffectsMap
+enum class SpecialRules
+{
+	ON_KILL,
+	DOUBLE,
+	RETURN,
+	NO_FIRST,
+	NO_PRIEST,
+	HAS_COST
+};
+
+struct EffectCost
+{
+	int gold;
+	int food;
+	int imp;
+};
+
+class Effect
 {
 public:
-	static std::map<std::string, Effect> s_effectsMap;
+	Effect(EffectType type, std::function<int(ITarget& target, int targetPos)> effectFunction, std::vector<SpecialRules>rules = {}, EffectCost cost = { 0,0 });
+	int operator()(ITarget& target, int targetPos) const;
+	bool CheckRule(SpecialRules rule) const;
+private:
+	EffectType m_type;
+	EffectCost m_cost;
+	std::vector<SpecialRules> m_rules;
+	std::function<int(ITarget& target, int targetPos)>m_effect = [](ITarget& target, int targetPos) { return 0; };
+
 };
+

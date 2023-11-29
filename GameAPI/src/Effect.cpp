@@ -1,13 +1,19 @@
 #include "Effect.h"
 
-std::map<std::string, Effect> EffectsMap::s_effectsMap = {
-	//traps effects
-	{"Poisoned dart", Effect(1, TargetType::TARGET, SpecialEffects::POISON) },
-	{"Anti-magic dart", Effect(1, TargetType::TARGET, SpecialEffects::CANCEL_ABILITY) },
-	{"Rolling Stone", Effect(3, TargetType::FRONT, SpecialEffects::NONE) },
-	{"FireWall", Effect(1, TargetType::ALL, SpecialEffects::NONE) },
-	{"FireWall2", Effect(1, TargetType::LAST, SpecialEffects::NONE) },
-	//monsters effects
-	{"Goblin", Effect(2, TargetType::FRONT, SpecialEffects::NONE) },
-	{"Ghost", Effect(2, TargetType::TARGET, SpecialEffects::NONE) }
-};
+#include "DlLogger.h"
+#include "HeroesTeam.h"
+
+Effect::Effect(EffectType type, std::function<int(ITarget& target, int targetPos)> effectFunction, std::vector<SpecialRules>rules, EffectCost cost) :
+	m_type(type), m_effect(effectFunction), m_rules(rules), m_cost(cost)
+{
+}
+
+int Effect::operator()(ITarget& target, int targetPos) const
+{
+	return m_effect(target, targetPos);
+}
+
+bool Effect::CheckRule(SpecialRules rule) const
+{
+	return std::find(m_rules.begin(), m_rules.end(), rule) != m_rules.end();
+}

@@ -1,6 +1,12 @@
 #pragma once
-#include "IHero.h"
 
+#include "ITarget.h"
+
+#include <vector>
+#include <string>
+
+class HeroesTeam;
+enum class TagsList;
 enum class HeroClass
 {
 	PALLADIN,
@@ -10,8 +16,7 @@ enum class HeroClass
 	MAGE
 };
 
-
-class Hero : public IHero
+class Hero : public ITarget
 {
 public:
 	Hero(int hp, int skill, HeroClass heroClass);
@@ -19,52 +24,55 @@ public:
 	/// <summary> Deal damage to hero </summary>
 	/// <param name="damageAmount"> Amount of damage </param>
 	/// <returns> Is hero alive </returns>
-	bool ReceiveDamage(int damageAmount) override;
+	bool ReceiveDamage(int damageAmount);
 	
 	/// <summary> Hero class getter </summary>
 	/// <returns> Enum value of hero class </returns>
-	HeroClass GetClass() const override;
+	HeroClass GetClass() const;
 	
 	/// <summary> Get team to which hero is assigned to </summary>
 	/// <returns></returns>
-	HeroesTeam* GetTeam() const override;
+	HeroesTeam* GetTeam() const;
 
 	/// <summary> Assign hero to team </summary>
 	/// <param name="teamToAssign"> Pointer to team </param>
-	void AssignToTeam(HeroesTeam* teamToAssign) override;
+	void AssignToTeam(HeroesTeam* teamToAssign);
 
 	/// <summary> Hero health getter </summary>
 	/// <returns> Amount of hero hit points </returns>
-	int GetHitPoints() const override;
+	int GetHitPoints() const;
 	
 	/// <summary> Get hero priority in team positioning </summary>
 	/// <returns> Integer inticating priority (0 - max priority) </returns>
-	int GetTeamPriority() const override;
-	
-	/// <summary> Return if hero is posioned </summary>
-	/// <returns> State of poison</returns>
-	bool GetPosioned() const override;
-
-	/// <summary> Posioned setter </summary>
-	/// <param name="posionedState"> Hero posioned state </param>
-	void SetPosioned(bool posionedState) override;
+	int GetTeamPriority() const;
 
 	/// <summary> Marks hero as positioned in team </summary>
-	void SetPositionAssigned() override;
+	void SetPositionAssigned();
 
 	/// <summary> Marks hero as positioned in team </summary>
-	bool GetPositionAssigned() const override;
+	bool GetPositionAssigned() const;
+
+	void SetPosioned(int posioned);
+	int GetPosioned();
+	bool ResolvePosion();
+
+	void AddTag(TagsList newTag);
+	bool ResolveTopTag();
 
 	bool operator<(const Hero& other) const;
+	bool operator==(const Hero& other) const;
+
+	std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
 
 private:
-	HeroesTeam* m_team;
+	std::vector<TagsList>m_tags;
+	HeroesTeam* m_team = nullptr;
 	HeroClass m_class;
-	int m_hitPoints;
-	int m_abitlityLevel;
-	int m_teamPriority;
+	int m_hitPoints = 1;
+	int m_abitlityLevel = 0;
+	int m_teamPriority = 0;
 	bool m_isAlive = true;
-	bool m_posioned = false;
-	bool m_possitionAssigned;
+	bool m_possitionAssigned = false;
+	int m_posioned = 0;
 
 };
