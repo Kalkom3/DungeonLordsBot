@@ -1,14 +1,22 @@
 #include "TrapCard.h"
+#include "EffectsMap.h"
 
 TrapCard::TrapCard(TrapsList trapName) :
-	m_TrapAction(GetStringFromTrap(trapName))
+	m_trapName(GetStringFromTrap(trapName))
 {
-
+	int effectNr = 1;
+	std::string nameToSearch = m_trapName;
+	while (EffectsMap::s_effectsMap.contains(nameToSearch))
+	{
+		m_TrapActions.push_back(Action(nameToSearch));
+		effectNr++;
+		nameToSearch = m_trapName + "_" + std::to_string(effectNr);
+	}
 }
 
-const Action& TrapCard::GetAction() const
+const Action& TrapCard::GetAction(int actionNr) const
 {
-	return m_TrapAction;
+	return m_TrapActions[actionNr];
 }
 
 

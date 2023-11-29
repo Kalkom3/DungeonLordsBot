@@ -1,9 +1,9 @@
 #include "Monster.h"
-
 #include "HeroesTeam.h"
+#include "DlLogger.h"
 
-Monster::Monster(MonsterCard baseMonster) :
-	m_monsterCard(baseMonster)
+Monster::Monster(const MonsterCard& baseMonster) :
+	m_MonsterCard(baseMonster)
 {
 }
 
@@ -18,8 +18,10 @@ void Monster::AddTarget(int targetPos)
 
 void Monster::Activate(HeroesTeam& heroTeam)
 {
-	for (size_t i = 0; i < m_targets.size(); i++)
-	{
-		//m_monsterCard.GetAction().ApplyEffect(heroTeam.GetHero(m_targets.at(i)));
-	}
+	LOG(L_DEBUG) << "Team before:";
+	heroTeam.CheckHeroesTeam();
+	m_MonsterCard.GetAction().ApplyEffect(heroTeam, m_targets);
+	LOG(L_DEBUG) << "Team after:";
+	heroTeam.CheckHeroesTeam();
+
 }

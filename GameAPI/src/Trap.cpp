@@ -11,6 +11,11 @@ Trap::~Trap()
 {
 }
 
+void Trap::SetAction(int actionNr)
+{
+	m_actionNr = actionNr;
+}
+
 void Trap::AddTarget(int targetPos)
 {
 	m_targets.push_back(targetPos);
@@ -20,7 +25,7 @@ void Trap::Activate(HeroesTeam& heroTeam)
 {
 	LOG(L_DEBUG) << "Team before:";
 	heroTeam.CheckHeroesTeam();
-	m_trapCard.GetAction().ApplyEffect(heroTeam, m_targets);
+	m_trapCard.GetAction(m_actionNr).ApplyEffect(heroTeam, m_targets);
 	LOG(L_DEBUG) << "Team after:";
 	heroTeam.CheckHeroesTeam();
 	

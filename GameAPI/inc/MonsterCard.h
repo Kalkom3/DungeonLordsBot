@@ -2,12 +2,27 @@
 
 #include "Action.h"
 
+enum class MonstersList
+{
+	GOBLIN,
+	SLIME,
+	GHOST,
+	TROLL,
+	WITCH,
+	VAMPIRE,
+	DEMON,
+	DRAGON,
+	GOLEM
+};
+
 class MonsterCard
 {
 public:
-	MonsterCard(std::string monsterName);
+	MonsterCard(MonstersList monsterName);
 
-	const Action& GetAction() const;
+	const Action& GetAction(int actionNr = 0) const;
+	static std::string GetStringFromMonster(MonstersList monster);
 private:
-	Action m_MonsterAction;
+	std::string m_monsterName;
+	std::vector<Action> m_MonsterActions;
 };

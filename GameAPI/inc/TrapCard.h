@@ -2,6 +2,8 @@
 
 #include "Action.h"
 
+#include <vector>
+
 enum class TrapsList
 {
 	ROLLING_BULDER,
@@ -20,8 +22,9 @@ class TrapCard
 public: 
 	TrapCard(TrapsList trapName);
 	
-	const Action& GetAction() const;
+	const Action& GetAction(int actionNr = 0) const;
 	static std::string GetStringFromTrap(TrapsList trap);
 private:
-	Action m_TrapAction;
+	std::string m_trapName;
+	std::vector<Action> m_TrapActions;
 };
