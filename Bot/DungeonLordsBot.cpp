@@ -13,14 +13,15 @@ int main()
 	LoggingConfig::s_logLevel = logLevel::L_DEBUG;
 	
 	testTeam.AddHero(Hero(1, 1, HeroClass::WARRIOR));
-	testTeam.AddHero(Hero(2, 1, HeroClass::PRIEST));
+	testTeam.AddHero(Hero(3, 1, HeroClass::PRIEST));
 	testTeam.AddHero(Hero(4, 1, HeroClass::MAGE));
 
+	MonsterCard testMonster(MonstersList::WITCH);
 	TrapCard testTrap(TrapsList::POSIONED_FOOD);
 	BattleRound testRound(testTeam);
 
-	testRound.AddTrap(testTrap, 2);
-	testRound.AddTrap(testTrap, 2);
+	testRound.AddTrap(testTrap);
+	testRound.AddMonster(testMonster, 0, 1, 1);
 
 	testRound.StartBattle();
 

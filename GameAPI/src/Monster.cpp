@@ -11,17 +11,34 @@ Monster::~Monster()
 {
 }
 
+void Monster::SetAction(int actionNr)
+{
+	m_actionNr = actionNr;
+}
+
 void Monster::AddTarget(int targetPos)
 {
-	m_targets.push_back(targetPos);
+	if (targetPos != -1)
+	{
+		m_targets.push_back(targetPos);
+	}
 }
 
 void Monster::Activate(HeroesTeam& heroTeam)
 {
 	LOG(L_DEBUG) << "Team before:";
 	heroTeam.CheckHeroesTeam();
-	m_MonsterCard.GetAction().ApplyEffect(heroTeam, m_targets);
+	m_exhusted = m_MonsterCard.GetAction(m_actionNr).ApplyEffect(heroTeam, m_targets);
 	LOG(L_DEBUG) << "Team after:";
 	heroTeam.CheckHeroesTeam();
+}
 
+void Monster::SetExhusted(bool exhusted)
+{
+	m_exhusted = exhusted;
+}
+
+bool Monster::GetExhusted()
+{
+	return m_exhusted;
 }

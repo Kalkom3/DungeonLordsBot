@@ -35,6 +35,10 @@ bool Action::ApplyEffect(HeroesTeam& heroes, std::vector<int> targets) const
 			{
 				targetIterator = 1;
 			}
+			if (effect.CheckRule(SpecialRules::DOUBLE))
+			{
+				kills += effect(heroes, targets[targetIterator]);
+			}
 		}
 		else
 		{
@@ -62,7 +66,7 @@ std::vector<Effect> Action::GetActionEffectsFromName(std::string name)
 	int effectNr = 1;
 	while (EffectsMap::s_effectsMap.contains(nameToSearch))
 	{
-		actionEffects.push_back(EffectsMap::s_effectsMap.at(name));
+		actionEffects.push_back(EffectsMap::s_effectsMap.at(nameToSearch));
 		effectNr++;
 		nameToSearch = name + "." + std::to_string(effectNr);
 	}

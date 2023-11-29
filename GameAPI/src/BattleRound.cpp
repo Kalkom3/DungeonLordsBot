@@ -10,12 +10,13 @@ BattleRound::~BattleRound()
 {
 }
 
-void BattleRound::AddMonster(const MonsterCard& newMonsterCard, int targetPosition, int secondTargetPosition)
+void BattleRound::AddMonster(const MonsterCard& newMonsterCard, int targetPosition, int actionNr, int extraTargetPosition)
 {
 	Monster newMonster = Monster(newMonsterCard);
 
 	newMonster.AddTarget(targetPosition);
-	newMonster.AddTarget(secondTargetPosition);
+	newMonster.AddTarget(extraTargetPosition);
+	newMonster.SetAction(actionNr);
 	
 	m_Monsters.push_back(newMonster);
 }
