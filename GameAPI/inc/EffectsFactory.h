@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
-#include <functional>#
+#include <functional>
 
-class ITarget;
-enum class TargetType;
+#include "Effect.h"
+
 enum class TagsList;
 
 class EffectsFactory
