@@ -11,7 +11,6 @@ class BattleRound
 {
 public:
 	BattleRound(HeroesTeam& heroesTeam);
-	~BattleRound();
 	void AddMonster(const MonsterCard& newMonsterCard, int targetPosition = 0, int actionNR = 0,int secondTargetPosition = 0);
 	void AddTrap(const TrapCard& newTrapCard , int targetPosition = 0);
 	void StartBattle();
