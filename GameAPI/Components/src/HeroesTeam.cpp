@@ -57,6 +57,11 @@ void HeroesTeam::SetTeamCanConquer(bool permissionState)
 	m_teamCanConquer = permissionState;
 }
 
+void HeroesTeam::SetTrapsProtection(int protection)
+{
+	m_trapsProtection = protection;
+}
+
 bool HeroesTeam::GetTeamCanHeal()
 {
 	return m_teamCanHeal;
@@ -70,6 +75,29 @@ bool HeroesTeam::GetTeamCanCast()
 bool HeroesTeam::GetTeamCanConquer()
 {
 	return m_teamCanConquer;
+}
+
+int HeroesTeam::GetTrapsProtection()
+{
+	return m_trapsProtection;
+}
+
+int HeroesTeam::GetTeamAbilityLevel(HeroClass abilityClass) const
+{
+	int result = 0;
+	
+	if (abilityClass != HeroClass::WARRIOR && abilityClass != HeroClass::PALLADIN)
+	{
+		for (const auto& hero : m_heroes)
+		{
+			if (hero.GetClass() == abilityClass || hero.GetClass() == HeroClass::PALLADIN)
+			{
+				result += hero.GetAbilityLevel();
+			}
+		}
+	}
+
+	return result;
 }
 
 void HeroesTeam::ResolveTeamTags()
@@ -97,12 +125,39 @@ void HeroesTeam::CheckHeroesTeam()
 	LOG(L_DEBUG) << "";
 	LOG(L_DEBUG) << "-----";
 	LOG(L_DEBUG) << "HeroTeam status:";
-	for (size_t i = 0; i < GetTeamSize(); i++)
+	for (const auto& hero : m_heroes)
 	{
-		LOG(L_DEBUG) << static_cast<int>(GetHero(i).GetClass()) << "-" << GetHero(i).GetHitPoints();
+		LOG(L_DEBUG) << hero.IdentifyHero();
 	}
 	LOG(L_DEBUG) << "-----";
 	LOG(L_DEBUG) << "";
+}
+
+void HeroesTeam::HealTeam()
+{
+	int healingAmount = GetTeamAbilityLevel(HeroClass::PRIEST);
+	for(auto& hero : m_heroes)
+	{
+		int heroWounds = hero.GetMaxHitPoints() - hero.GetHitPoints();
+		if (healingAmount >= heroWounds)
+		{
+			LOG(L_DEBUG) << hero.IdentifyHero() << "Healed by " << heroWounds;
+			hero.ReceiveHealing(heroWounds);
+			healingAmount -= heroWounds;
+		}
+		else
+		{
+			LOG(L_DEBUG) << hero.IdentifyHero() << "Healed by " << healingAmount;
+			hero.ReceiveHealing(healingAmount);
+			healingAmount = 0;
+		}
+		if (healingAmount == 0)
+		{
+			break;
+		}
+	}
+	LOG(L_DEBUG) << "After healing:";
+	CheckHeroesTeam();
 }
 
 Hero& HeroesTeam::operator[](int position)

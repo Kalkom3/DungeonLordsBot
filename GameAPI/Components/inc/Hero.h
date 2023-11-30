@@ -25,6 +25,10 @@ public:
 	/// <param name="damageAmount"> Amount of damage </param>
 	/// <returns> Is hero alive </returns>
 	bool ReceiveDamage(int damageAmount);
+
+	/// <summary> Restore hit points to hero </summary>
+	/// <param name="healAmount"> Amount of healing </param>
+	void ReceiveHealing(int healAmount);
 	
 	/// <summary> Hero class getter </summary>
 	/// <returns> Enum value of hero class </returns>
@@ -41,6 +45,14 @@ public:
 	/// <summary> Hero health getter </summary>
 	/// <returns> Amount of hero hit points </returns>
 	int GetHitPoints() const;
+
+	/// <summary> Hero max health getter </summary>
+	/// <returns> Max amount of hero hit points </returns>
+	int GetMaxHitPoints() const;
+
+	/// <summary> Hero ability getter </summary>
+	/// <returns> Level of hero ability </returns>
+	int GetAbilityLevel() const;
 	
 	/// <summary> Get hero priority in team positioning </summary>
 	/// <returns> Integer inticating priority (0 - max priority) </returns>
@@ -63,12 +75,17 @@ public:
 	bool operator==(const Hero& other) const;
 
 	std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
-
+	
+	std::string IdentifyHero() const;
+	static std::string GetStringFromClass(HeroClass heroClass);
 private:
+	bool ResolveDamageProtection(int damageProtection, int& damageAmount);
+
 	std::vector<TagsList>m_tags;
 	HeroesTeam* m_team = nullptr;
 	HeroClass m_class;
 	int m_hitPoints = 1;
+	int m_maxHitPoints = 1;
 	int m_abitlityLevel = 0;
 	int m_teamPriority = 0;
 	bool m_isAlive = true;

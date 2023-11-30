@@ -4,7 +4,7 @@
 #include "DlLogger.h"
 
 Hero::Hero(int hp, int skill, HeroClass heroClass) :
-	m_hitPoints(hp), m_abitlityLevel(skill), m_class(heroClass)
+	m_hitPoints(hp), m_maxHitPoints(hp), m_abitlityLevel(skill), m_class(heroClass)
 {
 	m_teamPriority = heroClass <= HeroClass::WARRIOR ? static_cast<int>(heroClass) : 3;
 }
@@ -28,6 +28,16 @@ void Hero::AssignToTeam(HeroesTeam* teamToAssign)
 int Hero::GetHitPoints() const
 {
 	return m_hitPoints;
+}
+
+int Hero::GetMaxHitPoints() const
+{
+	return m_maxHitPoints;
+}
+
+int Hero::GetAbilityLevel() const
+{
+	return m_abitlityLevel;
 }
 
 int Hero::GetTeamPriority() const
@@ -118,7 +128,12 @@ bool Hero::operator==(const Hero& other) const
 
 bool Hero::ReceiveDamage(int damageAmount)
 {
-	LOG(L_DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ") receive damage:" << damageAmount;
+	if (ResolveDamageProtection(GetTeam()->GetTrapsProtection(), damageAmount))
+	{
+		return true;
+	}
+
+	LOG(L_DEBUG) << IdentifyHero() << " receive damage:" << damageAmount;
 	if (damageAmount >= m_hitPoints)
 	{
 		m_hitPoints = 0;
@@ -130,9 +145,14 @@ bool Hero::ReceiveDamage(int damageAmount)
 	{
 		m_hitPoints -= damageAmount;
 		m_isAlive = true;
-		LOG(L_DEBUG) << "After damage: Hero" << static_cast<int>(this->GetClass()) << "(" << this->GetHitPoints() << ")";
+		LOG(L_DEBUG) << "After damage:" << IdentifyHero();
 	}
 	return m_isAlive;
+}
+
+void Hero::ReceiveHealing(int healAmount)
+{
+	m_hitPoints += healAmount;
 }
 
 void Hero::SetPositionAssigned()
@@ -147,4 +167,54 @@ std::vector<std::reference_wrapper<Hero> > Hero::GetTargetEntities()
 	resultVector.push_back(*this);
 
 	return resultVector;
+}
+
+std::string Hero::IdentifyHero() const
+{
+	return Hero::GetStringFromClass(GetClass()) + "[" + std::to_string(GetAbilityLevel()) + "](HP:" + std::to_string(GetHitPoints()) + "/" + std::to_string(GetMaxHitPoints()) + ")";
+}
+
+std::string Hero::GetStringFromClass(HeroClass heroClass)
+{
+	switch (heroClass)
+	{
+	case HeroClass::PALLADIN:
+		return "PALLADIN";
+		break;
+	case HeroClass::WARRIOR:
+		return "WARRIOR";
+		break;
+	case HeroClass::PRIEST:
+		return "PRIEST";
+		break;
+	case HeroClass::THIEF:
+		return "THIEF";
+		break;
+	case HeroClass::MAGE:
+		return "MAGE";
+		break;
+	default:
+		return "";
+		break;
+	}
+}
+
+bool Hero::ResolveDamageProtection(int damageProtection, int& damageAmount)
+{
+	if (damageProtection > 0)
+	{
+		if (damageProtection > damageAmount)
+		{
+			LOG(L_DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "Protected by thievery(" << damageProtection << "->" << (damageProtection - damageAmount) << ")";
+			GetTeam()->SetTrapsProtection(damageProtection - damageAmount);
+			return true;
+		}
+		else
+		{
+			LOG(L_DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "Protected by thievery(" << damageProtection << ")";
+			damageAmount -= damageProtection;
+			GetTeam()->SetTrapsProtection(0);
+		}
+	}
+	return false;
 }

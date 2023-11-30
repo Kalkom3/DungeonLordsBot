@@ -29,17 +29,21 @@ public:
 	void SetTeamCanHeal(bool permissionState);
 	void SetTeamCanCast(bool permissionState);
 	void SetTeamCanConquer(bool permissionState);
+	void SetTrapsProtection(int protection);
 
 	/// <summary> Team permissions getters </summary>
 	/// <returns> Concreate permission </returns>
 	bool GetTeamCanHeal();
 	bool GetTeamCanCast();
 	bool GetTeamCanConquer();
+	int GetTrapsProtection();
+
+	int GetTeamAbilityLevel(HeroClass ability) const;
 
 	void ResolveTeamTags();
 	void ResolveHeroDeath(Hero& hero);
 	void CheckHeroesTeam();
-
+	void HealTeam();
 	Hero& operator[](int pos);
 
 
@@ -50,6 +54,8 @@ private:
 	bool m_teamCanHeal = true;
 	bool m_teamCanCast = true;
 	bool m_teamCanConquer = true;
+
+	int m_trapsProtection = 0;
 
 	std::vector<Hero>m_heroes;
 
