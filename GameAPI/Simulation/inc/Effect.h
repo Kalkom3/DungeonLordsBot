@@ -21,10 +21,9 @@ enum class TargetType
 
 enum class EffectType
 {
-	DAMAGE,
-	TARGET_DEBUFF,
-	GROUP_DEBUFF,
-	ON_KILL
+	TRAP_DAMAGE,
+	MONSTER_DAMAGE,
+	DEBUFF
 };
 
 enum class SpecialRules

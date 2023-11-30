@@ -10,14 +10,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::FIRE_WALL),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::ALL, 1)
 		)
 	},
 	{
 		TrapCard::GetStringFromTrap(TrapsList::FIRE_WALL) + ".2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::LAST, 1)
 		)
 	},
@@ -25,7 +25,7 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::ROLLING_BULDER),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 3)
 		)
 	},
@@ -33,7 +33,7 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::FALLING_BLADE),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::SECOND, 3)
 		)
 	},
@@ -41,14 +41,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::HOLE),
 		Effect(
-			EffectType::GROUP_DEBUFF,
+			EffectType::DEBUFF,
 			EffectsFactory::CreateDebuffFunction(TargetType::FRONT, TagsList::STUNNED)
 		)
 	},
 	{
 		TrapCard::GetStringFromTrap(TrapsList::HOLE) + ".2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 2)
 		)
 	},
@@ -56,14 +56,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::POSIONED_DART),
 		Effect(
-			EffectType::TARGET_DEBUFF,
+			EffectType::DEBUFF,
 			EffectsFactory::CreateDebuffFunction(TargetType::TARGET, TagsList::POSIONED)
 		)
 	},
 	{
 		TrapCard::GetStringFromTrap(TrapsList::POSIONED_DART) + ".2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 1)
 		)
 	},
@@ -71,14 +71,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::MAGIC_DART),
 		Effect(
-			EffectType::TARGET_DEBUFF,
+			EffectType::DEBUFF,
 			EffectsFactory::CreateDebuffFunction(TargetType::TARGET, TagsList::SILIENCED)
 		)
 	},
 	{
 		TrapCard::GetStringFromTrap(TrapsList::MAGIC_DART) + ".2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 1)
 		)
 	},
@@ -86,14 +86,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::GOLDEN_RING),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::ALL, 1)
 		)
 	},
 	{
 		TrapCard::GetStringFromTrap(TrapsList::GOLDEN_RING) + ".2",
 		Effect(
-			EffectType::TARGET_DEBUFF,
+			EffectType::DEBUFF,
 			EffectsFactory::CreateDebuffFunction(TargetType::ALL, TagsList::STUNNED)
 		)
 	},
@@ -101,14 +101,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::IMP_KAMIKAZE),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 2)
 		)
 	},
 	{
 		TrapCard::GetStringFromTrap(TrapsList::IMP_KAMIKAZE) + ".2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::ALL, 1)
 		)
 	},
@@ -116,7 +116,7 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		TrapCard::GetStringFromTrap(TrapsList::POSIONED_FOOD),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::TRAP_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 999)
 		)
 	},
@@ -124,14 +124,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::GOBLIN),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 2)
 		)
 	},
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::GOBLIN) + ".2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 1),
 			{ SpecialRules::ON_KILL }
 		)
@@ -140,14 +140,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::SLIME),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::ALL, 1)
 		)
 	},
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::SLIME) + "_2",
 		Effect(
-			EffectType::TARGET_DEBUFF,
+			EffectType::DEBUFF,
 			EffectsFactory::CreateDebuffFunction(TargetType::ALL, TagsList::STUNNED)
 		)
 	},
@@ -155,7 +155,7 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::GHOST),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 2),
 			{ SpecialRules::NO_FIRST }
 		)
@@ -164,14 +164,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::TROLL),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 3)
 		)
 	},
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::TROLL) + "_2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 4),
 			{ SpecialRules::HAS_COST },
 			EffectCost{
@@ -183,14 +183,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::WITCH),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 4)
 		)
 	},
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::WITCH) + "_2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 1),
 			{ SpecialRules::DOUBLE }
 		)
@@ -199,14 +199,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::VAMPIRE),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 2)
 		)
 	},
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::VAMPIRE) + "_2",
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 3),
 			{ SpecialRules::RETURN, SpecialRules::NO_PRIEST }
 		)
@@ -215,14 +215,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::DEMON),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::TARGET, 7)
 		)
 	},
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::DEMON),
 		Effect(
-			EffectType::TARGET_DEBUFF,
+			EffectType::DEBUFF,
 			EffectsFactory::CreateDebuffFunction(TargetType::TARGET, TagsList::STUNNED)
 		)
 	},
@@ -230,14 +230,14 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::DRAGON),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::ALL, 2)
 		)
 	},
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::DRAGON),
 		Effect(
-			EffectType::TARGET_DEBUFF,
+			EffectType::DEBUFF,
 			EffectsFactory::CreateDebuffFunction(TargetType::ALL, TagsList::NO_HEAL)
 		)
 	},
@@ -245,7 +245,7 @@ std::map<std::string, Effect> EffectsMap::s_effectsMap = {
 	{
 		MonsterCard::GetStringFromMonster(MonstersList::GOLEM),
 		Effect(
-			EffectType::DAMAGE,
+			EffectType::MONSTER_DAMAGE,
 			EffectsFactory::CreateDamageEffect(TargetType::FRONT, 4),
 			{ SpecialRules::RETURN }
 		)
