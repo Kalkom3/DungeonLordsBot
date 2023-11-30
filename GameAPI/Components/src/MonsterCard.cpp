@@ -52,6 +52,7 @@ std::string MonsterCard::GetStringFromMonster(MonstersList monster)
 			return "Golem";
 		break;
 	default:
+		return "";
 		break;
 	}
 }

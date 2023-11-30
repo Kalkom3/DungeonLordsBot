@@ -52,6 +52,7 @@ std::string TrapCard::GetStringFromTrap(TrapsList trap)
 			return "Imp_Kamikaze";
 		break;
 	default:
+		return "";
 		break;
 	}
 }

@@ -1,5 +1,5 @@
 function useLib(test)
-    includedirs { test .. "/inc" }
+    includedirs { test .. "/**/inc" }
     links { test }
 end
 
@@ -8,7 +8,7 @@ function addStdStaticLibProject(name)
     kind "StaticLib"   
     targetdir "Build/Bin/%{prj.name}/%{cfg.longname}" 
 	objdir ("Build/Obj/%{prj.name}/%{cfg.longname}")
-    includedirs { "%{prj.name}/inc" }
+    includedirs { "%{prj.name}/**/inc" }
     files { "%{prj.name}/**.h", "%{prj.name}/**.cpp" } 
 end
 
@@ -57,7 +57,6 @@ workspace "DungeonLordsBot"
         includedirs
         {
             "%{prj.name}/inc",
-            "GameAPI/inc",
             "lib/googletest/googletest/include/gtest",
             "lib/googletest/googletest/include",
             "lib/googletest/googletest",
@@ -65,12 +64,12 @@ workspace "DungeonLordsBot"
             "lib/googletest/googlemock/include",
             "lib/googletest/googlemock"
         }
-        links { "GameAPI" }
+        useLib("GameAPI")
 
     project "Bot"  
         kind "ConsoleApp"   
         targetdir "Build/Bin/%{prj.name}/%{cfg.longname}" 
         objdir ("Build/Obj/%{prj.name}/%{cfg.longname}")
-        files { "%{prj.name}/**.h", "%{prj.name}/**.cpp" } 
+        files { "%{prj.name}/**.h", "%{prj.name}/**.cpp" }
+        useLib("GameAPI") 
         useLib("DlLogger")
-        useLib("GameAPI")
