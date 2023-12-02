@@ -1,5 +1,5 @@
 #include "BattleRound.h"
-
+#include <variant>
 
 BattleRound::BattleRound(HeroesTeam& heroesTeam) :
 	m_heroes(heroesTeam)
@@ -14,7 +14,7 @@ void BattleRound::AddMonster(const MonsterCard& newMonsterCard, int targetPositi
 	newMonster.AddTarget(extraTargetPosition);
 	newMonster.SetAction(actionNr);
 	
-	m_Monsters.push_back(newMonster);
+	m_monsters.push_back(newMonster);
 }
 
 void BattleRound::AddTrap(const TrapCard& newTrapCard, int targetPosition)
@@ -23,14 +23,14 @@ void BattleRound::AddTrap(const TrapCard& newTrapCard, int targetPosition)
 
 	newTrap.AddTarget(targetPosition);
 
-	m_Traps.push_back(newTrap);
+	m_traps.push_back(newTrap);
 }
 
 void BattleRound::StartBattle()
 {
 	bool monsterPlayed = false;
 	//Trap phase
-	for (Trap& trap : m_Traps)
+	for (Trap& trap : m_traps)
 	{
 		m_heroes.SetTrapsProtection(m_heroes.GetTeamAbilityLevel(HeroClass::THIEF));
 		trap.Activate(m_heroes);
@@ -39,13 +39,13 @@ void BattleRound::StartBattle()
 	m_heroes.ResolveTeamTags();
 
 	//Fast spell phase
-	if (m_heroes.GetTeamCanCast() && m_heroes.GetTeamAbilityLevel(HeroClass::MAGE))
+	if (m_heroes.GetTeamCanCast() && m_spell.get()->IsFast() && m_heroes.GetTeamAbilityLevel(HeroClass::MAGE))
 	{
-
+		ResolveSpell();
 	}
 
 	//Monsters phase
-	for (Monster& monster : m_Monsters)
+	for (Monster& monster : m_monsters)
 	{
 		monsterPlayed = true;
 		monster.Activate(m_heroes);
@@ -53,9 +53,9 @@ void BattleRound::StartBattle()
 	m_heroes.ResolveTeamTags();
 
 	//Slow spell phase
-	if (m_heroes.GetTeamCanCast() && m_heroes.GetTeamAbilityLevel(HeroClass::MAGE))
+	if (m_heroes.GetTeamCanCast() && !m_spell.get()->IsFast() && m_heroes.GetTeamAbilityLevel(HeroClass::MAGE))
 	{
-
+		ResolveSpell();
 	}
 
 	//Healing phase
@@ -74,9 +74,29 @@ void BattleRound::StartBattle()
 
 bool BattleRound::FinalizeRound()
 {
-	for (const auto& hero : m_heroes.GetTargetEntities())
+	for (auto& hero : m_heroes.GetHeroes())
 	{
-		hero.get().ResolvePosion();
+		hero.ResolvePosion();
 	}
 	return m_heroes.GetTeamSize()>0;
+}
+
+void BattleRound::ResolveSpell()
+{
+	switch (m_spell.get()->GetSpellType())
+	{
+	case SpellType::BUFF:
+		m_spell->CastSpell(m_heroes);
+		break;
+	case SpellType::OFFENCE:
+		for (auto& monster : m_monsters)
+		{
+			m_spell->CastSpell(monster);
+		}
+		break;
+	case SpellType::RESOURCE:
+		break;
+	default:
+		break;
+	}
 }
