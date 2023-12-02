@@ -4,39 +4,43 @@ std::map<TagsList, std::function<void(ITarget& target)>> TagsMap::s_tagsMap = {
 	{
 		TagsList::POSIONED,
 		[](ITarget& target) {
-			auto targetHero = target.GetTargetEntities().at(0);
-			if (targetHero.get().GetHitPoints() > 0)
+			auto targetsVec = std::get<HeroTargets>(target.GetTargetEntities()).get().GetHeroes();
+			auto targetHero = targetsVec.at(0);
+			if (targetHero.GetHitPoints() > 0)
 			{
-				targetHero.get().SetPosioned(2);
+				targetHero.SetPosioned(2);
 			}
 		}
 	},
 	{
 		TagsList::STUNNED,
 		[](ITarget& target) {
-			auto targetHero = target.GetTargetEntities().at(0);
-			targetHero.get().GetTeam()->SetTeamCanConquer(false);
+			auto targetsVec = std::get<HeroTargets>(target.GetTargetEntities()).get().GetHeroes();
+			auto targetHero = targetsVec.at(0);
+			targetHero.GetTeam()->SetTeamCanConquer(false);
 		}
 	},
 	{
 		TagsList::SILIENCED,
 		[](ITarget& target) {
-			auto targetHero = target.GetTargetEntities().at(0);
-			if (targetHero.get().GetClass() == HeroClass::MAGE)
+			auto targetsVec = std::get<HeroTargets>(target.GetTargetEntities()).get().GetHeroes();
+			auto targetHero = targetsVec.at(0);
+			if (targetHero.GetClass() == HeroClass::MAGE)
 			{
-				targetHero.get().GetTeam()->SetTeamCanCast(false);
+				targetHero.GetTeam()->SetTeamCanCast(false);
 			}
-			if (targetHero.get().GetClass() == HeroClass::PRIEST)
+			if (targetHero.GetClass() == HeroClass::PRIEST)
 			{
-				targetHero.get().GetTeam()->SetTeamCanHeal(false);
+				targetHero.GetTeam()->SetTeamCanHeal(false);
 			}
 		}
 	},
 	{
 		TagsList::NO_HEAL,
 		[](ITarget& target) {
-			auto targetHero = target.GetTargetEntities().at(0);
-			targetHero.get().GetTeam()->SetTeamCanHeal(false);
+			auto targetsVec = std::get<HeroTargets>(target.GetTargetEntities()).get().GetHeroes();
+			auto targetHero = targetsVec.at(0);
+			targetHero.GetTeam()->SetTeamCanHeal(false);
 		}
 	}
 

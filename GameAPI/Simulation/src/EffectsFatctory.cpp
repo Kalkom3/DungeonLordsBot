@@ -1,7 +1,7 @@
 #include "EffectsFactory.h"
 #include "Effect.h"
-#include "Hero.h"
 #include "DlLogger.h"
+#include "HeroesTeam.h"
 
 std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDamageEffect(TargetType targetType, int damageAmount)
 {
@@ -9,9 +9,10 @@ std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDamageE
 	{
 		return [damageAmount](ITarget& targets, int targetPos)  -> int {
 			int killCount = 0;
-			for (int i = 0; i < targets.GetTargetEntities().size(); i++)
+			auto targetsVec = std::get<HeroTargets>(targets.GetTargetEntities()).get().GetHeroes();
+			for (int i = 0; i < targetsVec.size(); i++)
 			{
-				if (!targets.GetTargetEntities().at(i).get().ReceiveDamage(damageAmount))
+				if (!targetsVec.at(i).ReceiveDamage(damageAmount))
 				{
 					i--;
 					killCount++;
@@ -24,11 +25,13 @@ std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDamageE
 	{
 		return [targetType, damageAmount](ITarget& targets, int targetPos) -> int {
 			int killCount = 0;
-			auto target = targets.GetTargetEntities().at(
-				EffectsFactory::FindTargetingByType(targetType, targets.GetTargetEntities().size(), targetPos)
+			auto targetsVec = std::get<HeroTargets>(targets.GetTargetEntities()).get().GetHeroes();
+
+			auto target = targetsVec.at(
+				EffectsFactory::FindTargetingByType(targetType, targetsVec.size(), targetPos)
 			);
-			int effectiveDamage = damageAmount <= 8 ? damageAmount : target.get().GetHitPoints();
-			if (!target.get().ReceiveDamage(effectiveDamage))
+			int effectiveDamage = damageAmount <= 8 ? damageAmount : target.GetHitPoints();
+			if (!target.ReceiveDamage(effectiveDamage))
 			{
 				killCount++;
 			}
@@ -43,19 +46,26 @@ std::function<int(ITarget& target, int targetPos)> EffectsFactory::CreateDebuffF
 	if (targetType == TargetType::ALL)
 	{
 		return [debuffTag](ITarget& targets, int targetPos) -> int {
-			targets.GetTargetEntities().at(0).get().AddTag(debuffTag);
+			auto targetsVec = std::get<HeroTargets>(targets.GetTargetEntities()).get().GetHeroes();
+			targetsVec.at(0).AddTag(debuffTag);
 			return 0;
 		};
 	}
 	else
 	{
 		return [targetType, debuffTag](ITarget& targets, int targetPos) -> int {
-			targets.GetTargetEntities().at(
-				EffectsFactory::FindTargetingByType(targetType, targets.GetTargetEntities().size(), targetPos)
-			).get().AddTag(debuffTag);
+			auto targetsVec = std::get<HeroTargets>(targets.GetTargetEntities()).get().GetHeroes();
+			targetsVec.at(
+				EffectsFactory::FindTargetingByType(targetType, targetsVec.size(), targetPos)
+			).AddTag(debuffTag);
 			return 0;
 		};
 	}
+}
+
+std::function<void(ITarget& target)> EffectsFactory::CreateBuffSpellFunction(TargetType targetType, TagsList buffTag)
+{
+	return std::function<void(ITarget & target)>();
 }
 
 
