@@ -42,3 +42,8 @@ bool Monster::GetExhusted()
 {
 	return m_exhusted;
 }
+
+PossibleTargets Monster::GetTargetEntities()
+{
+	return *this;
+}

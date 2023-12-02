@@ -16,7 +16,7 @@ enum class HeroClass
 	MAGE
 };
 
-class Hero : public ITarget
+class Hero
 {
 public:
 	Hero(int hp, int skill, HeroClass heroClass);
@@ -73,8 +73,6 @@ public:
 
 	bool operator<(const Hero& other) const;
 	bool operator==(const Hero& other) const;
-
-	std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
 	
 	std::string IdentifyHero() const;
 	static std::string GetStringFromClass(HeroClass heroClass);

@@ -87,7 +87,7 @@ bool Hero::ResolveTopTag()
 	LOG(L_DEBUG) << "--> " << TagsMap::GetStringFromTag(resolvedTag);
 	if (TagsMap::s_tagsMap.contains(resolvedTag))
 	{
-		TagsMap::s_tagsMap.at(resolvedTag)(*this);
+		TagsMap::s_tagsMap.at(resolvedTag)(*GetTeam());
 	}
 	else
 	{
@@ -128,7 +128,7 @@ bool Hero::operator==(const Hero& other) const
 
 bool Hero::ReceiveDamage(int damageAmount)
 {
-	if (ResolveDamageProtection(GetTeam()->GetTrapsProtection(), damageAmount))
+	if (ResolveDamageProtection(m_team->GetTrapsProtection(), damageAmount))
 	{
 		return true;
 	}
@@ -158,15 +158,6 @@ void Hero::ReceiveHealing(int healAmount)
 void Hero::SetPositionAssigned()
 {
 	m_possitionAssigned = true;
-}
-
-std::vector<std::reference_wrapper<Hero> > Hero::GetTargetEntities()
-{
-	std::vector<std::reference_wrapper<Hero> >resultVector;
-
-	resultVector.push_back(*this);
-
-	return resultVector;
 }
 
 std::string Hero::IdentifyHero() const
@@ -206,14 +197,14 @@ bool Hero::ResolveDamageProtection(int damageProtection, int& damageAmount)
 		if (damageProtection > damageAmount)
 		{
 			LOG(L_DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "Protected by thievery(" << damageProtection << "->" << (damageProtection - damageAmount) << ")";
-			GetTeam()->SetTrapsProtection(damageProtection - damageAmount);
+			m_team->SetTrapsProtection(damageProtection - damageAmount);
 			return true;
 		}
 		else
 		{
 			LOG(L_DEBUG) << "Hero" << static_cast<int>(this->GetClass()) << "Protected by thievery(" << damageProtection << ")";
 			damageAmount -= damageProtection;
-			GetTeam()->SetTrapsProtection(0);
+			m_team->SetTrapsProtection(0);
 		}
 	}
 	return false;

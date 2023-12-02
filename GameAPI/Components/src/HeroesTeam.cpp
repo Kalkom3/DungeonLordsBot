@@ -30,6 +30,11 @@ Hero& HeroesTeam::GetHero(int position)
 	return m_heroes[position];
 }
 
+std::vector<Hero>& HeroesTeam::GetHeroes()
+{
+	return m_heroes;
+}
+
 size_t HeroesTeam::GetTeamSize()
 {
 	return m_heroes.size();
@@ -165,13 +170,8 @@ Hero& HeroesTeam::operator[](int position)
 	return GetHero(position);
 }
 
-std::vector<std::reference_wrapper<Hero> > HeroesTeam::GetTargetEntities()
+PossibleTargets HeroesTeam::GetTargetEntities()
 {
-	std::vector<std::reference_wrapper<Hero> >resultVector;
-	for (Hero& hero : m_heroes)
-	{
-		resultVector.push_back(hero);
-	}
-	return resultVector;
+	return *this;
 }
 

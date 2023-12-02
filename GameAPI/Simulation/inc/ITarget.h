@@ -1,12 +1,19 @@
 #pragma once
 
 #include <vector>
+#include <variant>
 
-class Hero;
+class HeroesTeam;
+class Monster;
+
+using PossibleTargets = std::variant<std::reference_wrapper<HeroesTeam>, std::reference_wrapper<Monster> >;
+using HeroTargets = std::reference_wrapper<HeroesTeam>;
+using MonstersTargets = std::reference_wrapper<Monster>;
 
 class ITarget
 {
 public:
-	virtual std::vector<std::reference_wrapper<Hero> > GetTargetEntities() = 0;
+	virtual PossibleTargets GetTargetEntities() = 0;
 
 };
+

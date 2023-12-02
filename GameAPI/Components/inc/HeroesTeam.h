@@ -18,6 +18,7 @@ public:
 	/// <param name="possition"> Hero position </param>
 	/// <returns> Hero on given position </returns>
 	Hero& GetHero(int possition);
+	std::vector<Hero>&GetHeroes();
 
 	size_t GetTeamSize();
 
@@ -48,7 +49,7 @@ public:
 
 
 	// Inherited via ITarget
-	virtual std::vector<std::reference_wrapper<Hero> > GetTargetEntities() override;
+	PossibleTargets GetTargetEntities() override;
 private:
 
 	bool m_teamCanHeal = true;

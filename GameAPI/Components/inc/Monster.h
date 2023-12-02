@@ -3,10 +3,11 @@
 #include <vector>
 
 #include "MonsterCard.h"
+#include "ITarget.h"
 
 class HeroesTeam;
 
-class Monster
+class Monster : public ITarget
 {
 public:
 	Monster(const MonsterCard& baseMonster);
@@ -18,9 +19,12 @@ public:
 	void SetExhusted(bool exhusted);
 	bool GetExhusted();
 
+	// Inherited via ITarget
+	PossibleTargets GetTargetEntities() override;
 private:
 	const MonsterCard& m_MonsterCard;
 	std::vector<int> m_targets;
 	int m_actionNr = 0;
 	bool m_exhusted = false;
+
 };
